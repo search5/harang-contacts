@@ -9,8 +9,8 @@
 project = "harang-contacts"
 copyright = "2026, Ji-Ho Lee"
 author = "Ji-Ho Lee"
-release = "0.0.1"
-version = "0.0.1"
+release = "0.0.2"
+version = "0.0.2"
 
 # -- General configuration ----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
