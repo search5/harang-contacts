@@ -21,11 +21,9 @@ All of the plugin's logic lives under ``src/``:
        ``HarangContactsSettings``.
    * - ``settings.ts`` / ``settingsTab.ts``
      - Default settings and the settings UI. ``settingsTab.ts`` implements
-       both Obsidian's declarative ``getSettingDefinitions()`` API
-       (1.13.0+) and the classic imperative ``display()`` API, so the
-       plugin's minimum supported Obsidian version can stay below 1.13.0
-       while still getting the newer, searchable settings UI where it's
-       available.
+       Obsidian's classic imperative ``display()`` API rather than the
+       newer declarative ``getSettingDefinitions()`` API (1.13.0+), so the
+       settings UI works on Obsidian versions below 1.13.0 too.
    * - ``i18n.ts``
      - Looks up the current Obsidian UI language via the official
        ``getLanguage()`` API and returns matching strings from a small
