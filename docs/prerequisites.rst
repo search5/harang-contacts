@@ -29,11 +29,11 @@ You will need:
      - Your CardDAV account's password, or an app-specific password if your
        server supports one (recommended over your main account password).
 
-2. Obsidian 1.8.7 or later
+2. Obsidian 1.12.7 or later
 ------------------------------
 
-The plugin uses Obsidian's official ``getLanguage()`` API (available since
-1.8.7) to match its UI language to your Obsidian language setting, so this
-is the minimum supported Obsidian version.
+This is the plugin's declared minimum supported Obsidian version. Among
+other things, it uses Obsidian's official ``getLanguage()`` API (available
+since 1.8.7) to match its UI language to your Obsidian language setting.
 
 Once both are in place, continue to :doc:`installation`.

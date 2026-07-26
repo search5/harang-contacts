@@ -163,7 +163,7 @@ export class HarangContactsSettingTab extends PluginSettingTab {
 	// This method is not called on Obsidian 1.13.0+ once getSettingDefinitions()
 	// returns a non-empty array. It's kept only to support older versions.
 	// This file intentionally references APIs newer than its minAppVersion
-	// (1.8.7) — update(), other 1.13.0+-only SettingTab members — and keeps
+	// (1.12.7) — update(), other 1.13.0+-only SettingTab members — and keeps
 	// display() even though it's marked @deprecated. That's why the relevant
 	// lint rules are disabled for this one file in eslint.config.mjs.
 

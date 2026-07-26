@@ -19,7 +19,7 @@
 ## 사전 요구 사항
 
 - HTTP(S)로 접속 가능한 CardDAV 호환 주소록 — 예: [Radicale](https://radicale.org/), Nextcloud 연락처, Fastmail, 또는 [RFC 6352](https://www.rfc-editor.org/rfc/rfc6352)를 구현한 다른 서버.
-- Obsidian 1.8.7 이상.
+- Obsidian 1.12.7 이상.
 
 자세한 내용은 [사전 준비 사항](https://search5.github.io/harang-contacts/ko/prerequisites.html) 페이지를 참고하세요.
 

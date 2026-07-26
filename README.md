@@ -19,7 +19,7 @@ An [Obsidian](https://obsidian.md) plugin that lets you reference contacts from 
 ## Prerequisites
 
 - A CardDAV-compatible address book reachable over HTTP(S) — e.g. [Radicale](https://radicale.org/), Nextcloud Contacts, Fastmail, or any [RFC 6352](https://www.rfc-editor.org/rfc/rfc6352) server.
-- Obsidian 1.8.7 or later.
+- Obsidian 1.12.7 or later.
 
 See the [Prerequisites](https://search5.github.io/harang-contacts/en/prerequisites.html) page for details.
 
