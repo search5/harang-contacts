@@ -1,0 +1,10 @@
+{
+	"id": "harang-contacts",
+	"name": "Harang Contacts",
+	"version": "0.0.1",
+	"minAppVersion": "1.8.7",
+	"description": "CardDAV 서버의 주소록을 노트에서 참조할 수 있게 해주는 플러그인",
+	"author": "search5",
+	"authorUrl": "",
+	"isDesktopOnly": false
+}

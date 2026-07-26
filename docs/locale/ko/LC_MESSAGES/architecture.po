@@ -1,0 +1,225 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Ji-Ho Lee
+# This file is distributed under the same license as the harang-contacts
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: harang-contacts 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-26 19:28+0900\n"
+"PO-Revision-Date: 2026-07-26 19:28+0900\n"
+"Last-Translator: Ji-Ho Lee <search5@mz.co.kr>\n"
+"Language: ko\n"
+"Language-Team: ko <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../architecture.rst:2 c454f3928e374e51941bc9bf82df8f13
+msgid "Architecture"
+msgstr "아키텍처"
+
+#: ../../architecture.rst:5 499bca416e8848abb7a64cc893480686
+msgid "Source layout"
+msgstr "소스 구조"
+
+#: ../../architecture.rst:7 c1cb42e5ba8e45ffa0ac32b33c0f5ec1
+msgid "All of the plugin's logic lives under ``src/``:"
+msgstr "플러그인의 모든 로직은 ``src/`` 아래에 있습니다:"
+
+#: ../../architecture.rst:13 ba1efc61dc844b89b6b1fa6c99d3c0fb
+msgid "File"
+msgstr "파일"
+
+#: ../../architecture.rst:14 f6a916fde8b14751b2953751b4dab960
+msgid "Responsibility"
+msgstr "역할"
+
+#: ../../architecture.rst:15 c09e1679c05e4d7d9dff93cf8144e686
+msgid "``main.ts``"
+msgstr "``main.ts``"
+
+#: ../../architecture.rst:16 1a47fbe8d873481ba3329a9c61beec15
+msgid ""
+"Plugin entry point: loads settings, wires up the settings tab, editor "
+"suggest, live preview extension, and post-processor; adds the **Refresh "
+"contacts** command."
+msgstr ""
+"플러그인 진입점: 설정을 불러오고, 설정 탭·에디터 서제스트·라이브 프리뷰 익스텐션·포스트 프로세서를 연결하며, "
+"**주소록 새로고침** 명령을 추가합니다."
+
+#: ../../architecture.rst:19 dc92656b1e8f4ae9a65c58d885e3eb6e
+msgid "``types.ts``"
+msgstr "``types.ts``"
+
+#: ../../architecture.rst:20 c0c0a01c88b3434fb40ebcc1eac18377
+msgid "Shared types: ``Contact``, ``CardDavProfile``, ``HarangContactsSettings``."
+msgstr "공용 타입: ``Contact``, ``CardDavProfile``, ``HarangContactsSettings``."
+
+#: ../../architecture.rst:22 39d65f3e69a54575bf07f19c3dfc1f34
+msgid "``settings.ts`` / ``settingsTab.ts``"
+msgstr "``settings.ts`` / ``settingsTab.ts``"
+
+#: ../../architecture.rst:23 ae0685fb7e1c46199dd6ca79a4e927be
+msgid ""
+"Default settings and the settings UI. ``settingsTab.ts`` implements both "
+"Obsidian's declarative ``getSettingDefinitions()`` API (1.13.0+) and the "
+"classic imperative ``display()`` API, so the plugin's minimum supported "
+"Obsidian version can stay below 1.13.0 while still getting the newer, "
+"searchable settings UI where it's available."
+msgstr ""
+"기본 설정값과 설정 UI입니다. ``settingsTab.ts``\\ 는 Obsidian의 선언형 "
+"``getSettingDefinitions()`` API(1.13.0+)와 기존의 명령형 ``display()`` API를 모두 "
+"구현합니다. 그 덕분에 플러그인의 최소 지원 Obsidian 버전을 1.13.0 미만으로 유지하면서도, 지원되는 환경에서는 더 "
+"새롭고 검색 가능한 설정 UI를 사용할 수 있습니다."
+
+#: ../../architecture.rst:29 33f76d0e17694a03b50e4f07bc0d325b
+msgid "``i18n.ts``"
+msgstr "``i18n.ts``"
+
+#: ../../architecture.rst:30 e70cedd21df34d13ac362a3f8c4a62aa
+msgid ""
+"Looks up the current Obsidian UI language via the official "
+"``getLanguage()`` API and returns matching strings from a small "
+"``ko``/``en`` dictionary (falling back to English)."
+msgstr ""
+"Obsidian 공식 ``getLanguage()`` API로 현재 UI 언어를 조회하고, 작은 ``ko``/``en`` 사전에서 "
+"일치하는 문자열을 반환합니다(없으면 영어로 대체)."
+
+#: ../../architecture.rst:33 c24a349aaf7b421eaf86c52fad172920
+msgid "``carddav/client.ts``"
+msgstr "``carddav/client.ts``"
+
+#: ../../architecture.rst:34 8155cd4ed4c64dc790d431b194e6e201
+msgid ""
+"A minimal read-only CardDAV client: address book discovery (``PROPFIND"
+"``/``current-user-principal``/``addressbook-home-set``) and contact "
+"fetching (``REPORT`` ``addressbook-query``), over Obsidian's "
+"``requestUrl``."
+msgstr ""
+"최소한의 읽기 전용 CardDAV 클라이언트입니다: Obsidian의 ``requestUrl``\\ 을 통해 주소록 탐색"
+"(``PROPFIND``/``current-user-principal``/``addressbook-home-set``)과 연락처 "
+"조회(``REPORT`` ``addressbook-query``)를 수행합니다."
+
+#: ../../architecture.rst:38 118616f7e3074d278e2df467e6596dae
+msgid "``carddav/vcard.ts``"
+msgstr "``carddav/vcard.ts``"
+
+#: ../../architecture.rst:39 294c8ab6d72b46ee96dd4d68ad8fbe2e
+msgid ""
+"A small vCard 3/4 parser extracting ``FN``, ``UID``, ``EMAIL``, ``TEL``, "
+"and ``ORG`` into a ``Contact``."
+msgstr "vCard 3/4를 파싱해 ``FN``, ``UID``, ``EMAIL``, ``TEL``, ``ORG``\\ 를 ``Contact``\\ 로 추출하는 작은 파서입니다."
+
+#: ../../architecture.rst:41 7f12d20bd6be401594a7dd4a718ba332
+msgid "``carddav/store.ts``"
+msgstr "``carddav/store.ts``"
+
+#: ../../architecture.rst:42 772bf729ea6d47d6ac80378e4607e938
+msgid ""
+"``ContactStore``: merges and caches contacts from every configured "
+"profile, with TTL-based staleness and search/lookup helpers."
+msgstr ""
+"``ContactStore``: 설정된 모든 프로필의 연락처를 병합·캐시하며, TTL 기반 신선도 판단과 검색/조회 헬퍼를 "
+"제공합니다."
+
+#: ../../architecture.rst:44 c0fdcfbf5b344f1684a91d3c89f92b07
+msgid "``editorSuggest.ts``"
+msgstr "``editorSuggest.ts``"
+
+#: ../../architecture.rst:45 3e18db7af4b549ca9eedd7f2c160a8cf
+msgid ""
+"``ContactEditorSuggest``: triggers on ``@contact[``, searches the cached "
+"contact store, and inserts the selected contact's reference."
+msgstr ""
+"``ContactEditorSuggest``: ``@contact[``\\ 에서 트리거되어, 캐시된 연락처 스토어를 검색하고 선택된 "
+"연락처의 참조를 삽입합니다."
+
+#: ../../architecture.rst:47 ca1d1d4d73e84210ba1931e443c2733e
+msgid "``render/contactRef.ts``"
+msgstr "``render/contactRef.ts``"
+
+#: ../../architecture.rst:48 a3208b96a45e47c4987a2957fbe44b87
+msgid ""
+"Parses and formats the ``name|profileId|uid`` reference syntax, and "
+"resolves a reference back to a ``Contact`` (falling back to a name-only "
+"search if the UID is no longer in the cache)."
+msgstr ""
+"``name|profileId|uid`` 참조 문법을 파싱·생성하고, 참조를 다시 ``Contact``\\ 로 해석합니다(UID가 "
+"더 이상 캐시에 없으면 이름 검색으로 대체)."
+
+#: ../../architecture.rst:51 e90eb8a6a2b64253b5af872f88e85fa8
+msgid "``render/livePreview.ts``"
+msgstr "``render/livePreview.ts``"
+
+#: ../../architecture.rst:52 d729420c01af4ead942d670e2d041b75
+msgid ""
+"A CodeMirror 6 ``ViewPlugin`` that replaces ``@contact[...]`` ranges with"
+" chip widgets in Live Preview, skipping ranges the cursor or selection "
+"currently overlaps so the raw syntax stays editable."
+msgstr ""
+"라이브 프리뷰에서 ``@contact[...]`` 범위를 칩 위젯으로 치환하는 CodeMirror 6 ``ViewPlugin``\\ "
+"입니다. 커서나 선택 영역이 겹치는 범위는 건너뛰어 원문 문법을 계속 편집할 수 있게 합니다."
+
+#: ../../architecture.rst:55 4bfcb980bf094604bea01ebb5f99f2f9
+msgid "``render/postProcessor.ts``"
+msgstr "``render/postProcessor.ts``"
+
+#: ../../architecture.rst:56 4bf5757dc38c420bbe5f919e44e74139
+msgid ""
+"A Markdown post-processor that does the same replacement for Reading "
+"view, by walking rendered text nodes."
+msgstr "렌더링된 텍스트 노드를 순회하며 읽기 모드에서 동일한 치환을 수행하는 마크다운 포스트 프로세서입니다."
+
+#: ../../architecture.rst:58 8124fe046e9a4460a081e40fe4436a76
+msgid "``render/chip.ts`` / ``render/card.ts``"
+msgstr "``render/chip.ts`` / ``render/card.ts``"
+
+#: ../../architecture.rst:59 fa38a22bf1ee48afa102e5f5cb061bf9
+msgid ""
+"The chip DOM element, and the click-to-open detail card (a manually "
+"positioned floating panel, closed on outside click or Esc)."
+msgstr "칩 DOM 엘리먼트와, 클릭 시 열리는 상세 카드(직접 위치를 계산하는 플로팅 패널이며, 바깥 클릭이나 Esc로 닫힘)입니다."
+
+#: ../../architecture.rst:64 df539be20418483f82c38f8bd0ac0da7
+msgid "Data flow"
+msgstr "데이터 흐름"
+
+#: ../../architecture.rst:89 4d764534efcd4eaf8094e87c9d2e5b18
+msgid "Reference syntax"
+msgstr "참조 문법"
+
+#: ../../architecture.rst:91 7e0f6f04265a4997b4ed601eddaaa9ac
+msgid ""
+"A resolved reference is stored as ``@contact[name|profileId|uid]``. Only "
+"``name`` is shown in the rendered chip; ``profileId`` and ``uid`` are "
+"used to look the contact up precisely, so two contacts that happen to "
+"share a display name (on the same server or different ones) never get "
+"confused with each other. References typed by hand without the "
+"``|profileId|uid`` suffix still resolve, by falling back to a plain name "
+"search."
+msgstr ""
+"확정된 참조는 ``@contact[name|profileId|uid]`` 형태로 저장됩니다. 렌더링된 칩에는 ``name``\\ "
+"만 표시되고, ``profileId``\\ 와 ``uid``\\ 는 연락처를 정확히 찾는 데 사용됩니다. 그래서 (같은 서버든 "
+"다른 서버든) 표시 이름이 우연히 같은 두 연락처가 서로 혼동되는 일이 없습니다. ``|profileId|uid`` 접미사 "
+"없이 손으로 입력한 참조도, 이름만으로 검색하는 방식으로 대체되어 정상적으로 해석됩니다."
+
+#: ../../architecture.rst:99 610f0b17fa56451dacbdf8b0eb7bf758
+msgid "No runtime dependencies"
+msgstr "런타임 의존성 없음"
+
+#: ../../architecture.rst:101 6d886c9a33894709bff72bb6cf3fd0a6
+msgid ""
+"Beyond what Obsidian itself provides (the ``obsidian`` package, "
+"CodeMirror 6), the plugin has no runtime dependencies — the CardDAV "
+"client and vCard parser are both hand-written rather than pulled in from "
+"npm, keeping the bundle small and avoiding exposure to a third-party "
+"HTTP/XML parsing library's own vulnerabilities."
+msgstr ""
+"Obsidian 자체가 제공하는 것(``obsidian`` 패키지, CodeMirror 6) 외에는 런타임 의존성이 없습니다 — "
+"CardDAV 클라이언트와 vCard 파서 모두 npm에서 가져오지 않고 직접 작성해, 번들 크기를 작게 유지하고 서드파티 "
+"HTTP/XML 파싱 라이브러리 자체의 취약점에 노출될 일을 없앴습니다."

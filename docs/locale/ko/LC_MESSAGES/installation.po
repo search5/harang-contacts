@@ -1,0 +1,105 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Ji-Ho Lee
+# This file is distributed under the same license as the harang-contacts
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: harang-contacts 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-26 19:28+0900\n"
+"PO-Revision-Date: 2026-07-26 19:28+0900\n"
+"Last-Translator: Ji-Ho Lee <search5@mz.co.kr>\n"
+"Language: ko\n"
+"Language-Team: ko <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../installation.rst:2 9b512db493b346d9a08f73f80e3cb49b
+msgid "Installation"
+msgstr "설치"
+
+#: ../../installation.rst:4 62148987a30e4c33b7db7bda3d0bf864
+msgid "Make sure you have completed the steps in :doc:`prerequisites` first."
+msgstr ":doc:`prerequisites`\\ 의 단계를 먼저 완료했는지 확인하세요."
+
+#: ../../installation.rst:6 c940c9b89aa24e1abc9171e05e3e4936
+msgid ""
+"**harang-contacts** is not yet published to the Obsidian Community "
+"Plugins directory, so for now it must be built (or downloaded pre-built) "
+"and installed manually."
+msgstr ""
+"**harang-contacts**\\ 는 아직 Obsidian 커뮤니티 플러그인 목록에 등록되지 않았습니다. 그래서 지금은 "
+"직접 빌드하거나(또는 미리 빌드된 파일을 받아서) 수동으로 설치해야 합니다."
+
+#: ../../installation.rst:11 16ff1cad5e5f4c749d0918495e7adcf7
+msgid "Method 1 — Manual install of pre-built files"
+msgstr "방법 1 — 미리 빌드된 파일 수동 설치"
+
+#: ../../installation.rst:13 2cf3125835bf4310ac68b70effc2e444
+msgid ""
+"Use this method if you already have a built copy of the plugin "
+"(``main.js``, ``manifest.json``, ``styles.css``) — for example from a "
+"release archive."
+msgstr ""
+"이미 빌드된 플러그인 사본(``main.js``, ``manifest.json``, ``styles.css``)이 있다면 이 "
+"방법을 사용하세요 — 예를 들어 릴리스 압축 파일로 받은 경우입니다."
+
+#: ../../installation.rst:16 921824f90d68426a87dac1c228d2c01f
+msgid ""
+"In your vault, create the folder ``<vault>/.obsidian/plugins/harang-"
+"contacts/`` if it doesn't already exist."
+msgstr "보관소(vault) 안에 ``<vault>/.obsidian/plugins/harang-contacts/`` 폴더가 없다면 만드세요."
+
+#: ../../installation.rst:19 727653c7a02b4fde922c7f199370f1f8
+msgid "Copy ``main.js``, ``manifest.json``, and ``styles.css`` into that folder."
+msgstr "``main.js``, ``manifest.json``, ``styles.css``\\ 를 그 폴더 안에 복사하세요."
+
+#: ../../installation.rst:20 b77b12cae57444ab92875a9cae124662
+msgid ""
+"Restart Obsidian, then enable **Harang Contacts** under **Settings → "
+"Community plugins**."
+msgstr "Obsidian을 재시작한 뒤, **설정 → 커뮤니티 플러그인**\\ 에서 **Harang Contacts**\\ 를 활성화하세요."
+
+#: ../../installation.rst:24 edd278b77cd84a46877a6126477fc5d2
+msgid "Method 2 — Clone the Git repository and build from source"
+msgstr "방법 2 — Git 저장소를 복제해 소스에서 직접 빌드"
+
+#: ../../installation.rst:26 b1ebc5ff7d4a485fab7ce112b419f8d8
+msgid ""
+"Use this method if you want to build from a specific commit or contribute"
+" to the plugin."
+msgstr "특정 커밋에서 빌드하고 싶거나 플러그인 개발에 기여하고 싶다면 이 방법을 사용하세요."
+
+#: ../../installation.rst:29 6631c78d685e4869b1475332786f2ef1
+msgid "**Requirements:** `Node.js <https://nodejs.org/>`_ 18 or later."
+msgstr "**요구 사항:** `Node.js <https://nodejs.org/>`_ 18 이상."
+
+#: ../../installation.rst:38 bca30bce6f58452598d348845c2b6703
+msgid ""
+"This produces ``main.js`` in the project root. Copy it, together with "
+"``manifest.json`` and ``styles.css``, into ``<vault>/.obsidian/plugins"
+"/harang-contacts/`` as described in Method 1, then restart Obsidian and "
+"enable the plugin."
+msgstr ""
+"이 명령은 프로젝트 루트에 ``main.js``\\ 를 생성합니다. 이 파일을 ``manifest.json``, "
+"``styles.css``\\ 와 함께 방법 1에서 설명한 대로 ``<vault>/.obsidian/plugins/harang-"
+"contacts/``\\ 에 복사한 뒤, Obsidian을 재시작하고 플러그인을 활성화하세요."
+
+#: ../../installation.rst:45 5ffb07b413a94702b2f6032eb9c1192b
+msgid ""
+"``npm run dev`` starts esbuild in watch mode, rebuilding ``main.js`` on "
+"every source change — useful when iterating on the plugin itself."
+msgstr ""
+"``npm run dev``\\ 는 esbuild를 watch 모드로 실행해, 소스가 바뀔 때마다 ``main.js``\\ 를 "
+"다시 빌드합니다 — 플러그인 자체를 개발할 때 유용합니다."
+
+#: ../../installation.rst:48 c309aede4e544bb195fd99b8dd9fe12c
+msgid ""
+"Once installed, continue to :doc:`usage` to set up a CardDAV server "
+"profile."
+msgstr "설치가 끝났다면 :doc:`usage`\\ 로 이동해 CardDAV 서버 프로필을 설정하세요."

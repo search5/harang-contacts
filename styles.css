@@ -1,0 +1,106 @@
+.harang-contact-chip {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.35em;
+	padding: 0.05em 0.55em;
+	border-radius: 999px;
+	background-color: var(--tag-background, var(--background-modifier-hover));
+	color: var(--tag-color, var(--text-normal));
+	border: 1px solid var(--background-modifier-border);
+	font-size: 0.92em;
+	cursor: pointer;
+	white-space: nowrap;
+	line-height: 1.4;
+}
+
+.harang-contact-chip:hover {
+	background-color: var(--background-modifier-hover);
+	border-color: var(--interactive-accent);
+}
+
+.harang-contact-chip-unresolved {
+	opacity: 0.6;
+	border-style: dashed;
+}
+
+.harang-contact-chip-name {
+	font-weight: 600;
+}
+
+.harang-contact-chip-email {
+	color: var(--text-muted);
+	font-size: 0.9em;
+}
+
+.harang-contact-card {
+	z-index: var(--layer-popover, 70);
+	width: 280px;
+	padding: 12px 14px;
+	border-radius: 8px;
+	background-color: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	box-shadow: var(--shadow-l);
+}
+
+.harang-contact-card-title {
+	font-weight: 700;
+	font-size: 1.05em;
+	margin-bottom: 6px;
+}
+
+.harang-contact-card-missing {
+	color: var(--text-muted);
+	font-size: 0.9em;
+}
+
+.harang-contact-card-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.harang-contact-card-row {
+	display: flex;
+	gap: 6px;
+	font-size: 0.9em;
+}
+
+.harang-contact-card-label {
+	color: var(--text-muted);
+	min-width: 44px;
+}
+
+.harang-contact-card-value {
+	color: var(--text-normal);
+	overflow-wrap: anywhere;
+}
+
+.harang-contact-card-source {
+	margin-top: 8px;
+	padding-top: 6px;
+	border-top: 1px solid var(--background-modifier-border);
+	color: var(--text-faint);
+	font-size: 0.8em;
+}
+
+.harang-contacts-suggestion {
+	display: flex;
+	flex-direction: column;
+	padding: 2px 0;
+}
+
+.harang-contacts-suggestion-name {
+	font-weight: 600;
+}
+
+.harang-contacts-suggestion-email {
+	color: var(--text-muted);
+	font-size: 0.85em;
+}
+
+.harang-contacts-profile {
+	margin: 12px 0;
+	padding: 10px 12px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+}
