@@ -8,7 +8,7 @@ An [Obsidian](https://obsidian.md) plugin that lets you reference contacts from 
 
 ## Features
 
-- **`@contact[` autocomplete** — type `@contact[` followed by a name to search the cached address book and insert a reference, the same way Obsidian's own link autocomplete works.
+- **`{{hrcard:` staged autocomplete** — type `{{hrcard:` and pick a server profile, then a contact name, from one staged popup (the same pattern as the sibling `harang-calendar` plugin's `{{hrcal:` trigger). Inserts `{{hrcard:<profileName>:<uid>}}`.
 - **Inline chips, in both Live Preview and Reading view** — a reference renders as a rounded pill showing the contact's name (and email, if they have one), not raw syntax.
 - **Click-to-open detail card** — click a chip to see email, phone, and organization; click outside or press Esc to close.
 - **Unambiguous even with duplicate names** — a picked reference is pinned to the exact contact (server profile + CardDAV UID), so two people sharing a name never get confused with each other.
@@ -25,49 +25,22 @@ See the [Prerequisites](https://search5.github.io/harang-contacts/en/prerequisit
 
 ## Installation
 
-**harang-contacts** is not yet published to the Obsidian Community Plugins directory, so it must be installed manually for now.
+Open **Settings → Community plugins → Browse** in Obsidian, search for **"Harang Contacts"**, then click **Install** and **Enable**.
 
-### Option A — Manual install of pre-built files
-
-Copy `main.js`, `manifest.json`, and `styles.css` into `<vault>/.obsidian/plugins/harang-contacts/`, then enable **Harang Contacts** under **Settings → Community plugins**.
-
-### Option B — From source
-
-**Requirements:** [Node.js](https://nodejs.org/) 18 or later
-
-```bash
-git clone https://github.com/search5/harang-contacts.git
-cd harang-contacts
-npm install
-npm run build
-```
-
-Copy the resulting `main.js`, along with `manifest.json` and `styles.css`, into `<vault>/.obsidian/plugins/harang-contacts/` as in Option A, then restart Obsidian.
-
-See the [Installation](https://search5.github.io/harang-contacts/en/installation.html) page for more detail.
+A manual install from pre-built files is also possible if you'd rather not use the Community Plugins browser — see the [Installation](https://search5.github.io/harang-contacts/en/installation.html) page for details.
 
 ## Usage
 
 1. In **Settings → Harang Contacts**, add a server profile (name, server URL, username, password) and click **Test connection & auto-discover**.
-2. In a note, type `@contact[` followed by (part of) a name and pick a contact from the autocomplete popup.
+2. In a note, type `{{hrcard:`, pick the profile, then pick a contact from the autocomplete popup.
 3. Click the resulting chip to see the contact's full details.
 
 See the [Usage](https://search5.github.io/harang-contacts/en/usage.html) guide for the full walkthrough, including how multiple profiles and duplicate names are handled.
 
 ## Known limitations
 
-- References typed by hand (without going through the `@contact[` autocomplete) resolve by name only, so they can be ambiguous if more than one contact shares that name. Always insert references via autocomplete to avoid this.
+- References are only meant to be inserted via the `{{hrcard:` autocomplete — a hand-typed reference needs the exact CardDAV UID to resolve, which isn't practical to type from memory.
 - Contacts are cached client-side with a configurable TTL (default 30 minutes); changes made on the server aren't reflected until the next refresh.
-
-## Development
-
-```bash
-npm run dev    # esbuild in watch mode
-npm run build  # type-check + production build
-npm run lint   # eslint (includes eslint-plugin-obsidianmd)
-```
-
-See [Architecture](https://search5.github.io/harang-contacts/en/architecture.html) for the source layout and data flow.
 
 ## License
 

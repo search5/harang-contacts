@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: harang-contacts 0.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-26 19:28+0900\n"
+"POT-Creation-Date: 2026-07-29 10:16+0900\n"
 "PO-Revision-Date: 2026-07-26 19:28+0900\n"
 "Last-Translator: Ji-Ho Lee <search5@mz.co.kr>\n"
 "Language: ko\n"
@@ -19,87 +19,124 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: ../../installation.rst:2 9b512db493b346d9a08f73f80e3cb49b
+#: ../../installation.rst:2 60f4f747428f4344ac4fe7b883e60f2a
 msgid "Installation"
 msgstr "설치"
 
-#: ../../installation.rst:4 62148987a30e4c33b7db7bda3d0bf864
+#: ../../installation.rst:4 0aaac23a9c7b4230a9527dd5eb5f2a0c
 msgid "Make sure you have completed the steps in :doc:`prerequisites` first."
 msgstr ":doc:`prerequisites`\\ 의 단계를 먼저 완료했는지 확인하세요."
 
-#: ../../installation.rst:6 c940c9b89aa24e1abc9171e05e3e4936
+#: ../../installation.rst:6 2e6504d95cb84d45b116d21ce760ce15
 msgid ""
-"**harang-contacts** is not yet published to the Obsidian Community "
-"Plugins directory, so for now it must be built (or downloaded pre-built) "
-"and installed manually."
+"**harang-contacts** is listed in Obsidian's official Community Plugins "
+"directory, so the recommended way to install it is directly from within "
+"Obsidian."
 msgstr ""
-"**harang-contacts**\\ 는 아직 Obsidian 커뮤니티 플러그인 목록에 등록되지 않았습니다. 그래서 지금은 "
-"직접 빌드하거나(또는 미리 빌드된 파일을 받아서) 수동으로 설치해야 합니다."
+"**harang-contacts**\\ 는 Obsidian 공식 커뮤니티 플러그인 목록에 등록되어 있으므로, Obsidian "
+"안에서 바로 설치하는 것이 권장되는 방법입니다."
 
-#: ../../installation.rst:11 16ff1cad5e5f4c749d0918495e7adcf7
-msgid "Method 1 — Manual install of pre-built files"
-msgstr "방법 1 — 미리 빌드된 파일 수동 설치"
+#: ../../installation.rst:11 17d12b56fa5147da92ad7ae85a52569c
+msgid "Method 1 — Community Plugins browser (recommended)"
+msgstr "방법 1 — 커뮤니티 플러그인 찾아보기 (권장)"
 
-#: ../../installation.rst:13 2cf3125835bf4310ac68b70effc2e444
+#: ../../installation.rst:13 825a71ff81df423f95796c02fcff2177
+msgid "Open **Settings → Community plugins** in Obsidian."
+msgstr "Obsidian에서 **설정 → 커뮤니티 플러그인**\\ 을 여세요."
+
+#: ../../installation.rst:14 31f3c917dda14b6aaf5d41442a2bb8fd
+msgid "Click **Browse**, then search for **\"Harang Contacts\"**."
+msgstr "**찾아보기**\\ 를 클릭한 뒤 **\"Harang Contacts\"**\\ 를 검색하세요."
+
+#: ../../installation.rst:15 ffe914bcf1ca4b4c824f07ff3ab33e8b
+msgid "Click **Install**, then **Enable**."
+msgstr "**설치**\\ 를 클릭한 뒤 **활성화**\\ 하세요."
+
+#: ../../installation.rst:17 16d116b2102b457fbc5215ae13e9ecf7
+msgid ""
+"Obsidian will also notify you of future updates and let you update the "
+"plugin from the same screen."
+msgstr "이후 업데이트가 있을 때도 Obsidian이 알려주며, 같은 화면에서 플러그인을 업데이트할 수 있습니다."
+
+#: ../../installation.rst:21 29170a41538c424eb23d8caae9ec2664
+msgid "Method 2 — Manual install of pre-built files"
+msgstr "방법 2 — 미리 빌드된 파일 수동 설치"
+
+#: ../../installation.rst:23 da4290b32c484153ab63941d2ac4f763
 msgid ""
 "Use this method if you already have a built copy of the plugin "
 "(``main.js``, ``manifest.json``, ``styles.css``) — for example from a "
-"release archive."
+"release archive — and want to install it without going through the "
+"Community Plugins browser."
 msgstr ""
-"이미 빌드된 플러그인 사본(``main.js``, ``manifest.json``, ``styles.css``)이 있다면 이 "
-"방법을 사용하세요 — 예를 들어 릴리스 압축 파일로 받은 경우입니다."
+"이미 빌드된 플러그인 사본(``main.js``, ``manifest.json``, ``styles.css``)이 있다면 이 방법을"
+" 사용하세요 — 예를 들어 릴리스 압축 파일로 받았거나, 커뮤니티 플러그인 찾아보기를 거치지 않고 설치하고 싶은 "
+"경우입니다."
 
-#: ../../installation.rst:16 921824f90d68426a87dac1c228d2c01f
+#: ../../installation.rst:27 7bbf4293fa4d4135b4f2a81afcc518af
 msgid ""
 "In your vault, create the folder ``<vault>/.obsidian/plugins/harang-"
 "contacts/`` if it doesn't already exist."
 msgstr "보관소(vault) 안에 ``<vault>/.obsidian/plugins/harang-contacts/`` 폴더가 없다면 만드세요."
 
-#: ../../installation.rst:19 727653c7a02b4fde922c7f199370f1f8
+#: ../../installation.rst:30 dacebc8aff2c483f8c71aa3785893c2a
 msgid "Copy ``main.js``, ``manifest.json``, and ``styles.css`` into that folder."
 msgstr "``main.js``, ``manifest.json``, ``styles.css``\\ 를 그 폴더 안에 복사하세요."
 
-#: ../../installation.rst:20 b77b12cae57444ab92875a9cae124662
+#: ../../installation.rst:31 906309cfbe9643fc81ed99fcf62dcbc0
 msgid ""
 "Restart Obsidian, then enable **Harang Contacts** under **Settings → "
 "Community plugins**."
 msgstr "Obsidian을 재시작한 뒤, **설정 → 커뮤니티 플러그인**\\ 에서 **Harang Contacts**\\ 를 활성화하세요."
 
-#: ../../installation.rst:24 edd278b77cd84a46877a6126477fc5d2
-msgid "Method 2 — Clone the Git repository and build from source"
-msgstr "방법 2 — Git 저장소를 복제해 소스에서 직접 빌드"
+#: ../../installation.rst:35 1a61c600c7574ebfac1b7d952ca8aff9
+msgid "Method 3 — Clone the Git repository and build from source"
+msgstr "방법 3 — Git 저장소를 복제해 소스에서 직접 빌드"
 
-#: ../../installation.rst:26 b1ebc5ff7d4a485fab7ce112b419f8d8
+#: ../../installation.rst:37 364dc5a646e44163b60b02cda6e99eda
 msgid ""
 "Use this method if you want to build from a specific commit or contribute"
 " to the plugin."
 msgstr "특정 커밋에서 빌드하고 싶거나 플러그인 개발에 기여하고 싶다면 이 방법을 사용하세요."
 
-#: ../../installation.rst:29 6631c78d685e4869b1475332786f2ef1
+#: ../../installation.rst:40 fe1f305d83c549069565fa3b537216bc
 msgid "**Requirements:** `Node.js <https://nodejs.org/>`_ 18 or later."
 msgstr "**요구 사항:** `Node.js <https://nodejs.org/>`_ 18 이상."
 
-#: ../../installation.rst:38 bca30bce6f58452598d348845c2b6703
+#: ../../installation.rst:49 85118cf7266e4e8fb7a9e21525929748
 msgid ""
 "This produces ``main.js`` in the project root. Copy it, together with "
 "``manifest.json`` and ``styles.css``, into ``<vault>/.obsidian/plugins"
-"/harang-contacts/`` as described in Method 1, then restart Obsidian and "
+"/harang-contacts/`` as described in Method 2, then restart Obsidian and "
 "enable the plugin."
 msgstr ""
 "이 명령은 프로젝트 루트에 ``main.js``\\ 를 생성합니다. 이 파일을 ``manifest.json``, "
-"``styles.css``\\ 와 함께 방법 1에서 설명한 대로 ``<vault>/.obsidian/plugins/harang-"
+"``styles.css``\\ 와 함께 방법 2에서 설명한 대로 ``<vault>/.obsidian/plugins/harang-"
 "contacts/``\\ 에 복사한 뒤, Obsidian을 재시작하고 플러그인을 활성화하세요."
 
-#: ../../installation.rst:45 5ffb07b413a94702b2f6032eb9c1192b
+#: ../../installation.rst:56 8f664c0f5fcf48c9a63468cdcbdf18d1
 msgid ""
 "``npm run dev`` starts esbuild in watch mode, rebuilding ``main.js`` on "
 "every source change — useful when iterating on the plugin itself."
 msgstr ""
-"``npm run dev``\\ 는 esbuild를 watch 모드로 실행해, 소스가 바뀔 때마다 ``main.js``\\ 를 "
-"다시 빌드합니다 — 플러그인 자체를 개발할 때 유용합니다."
+"``npm run dev``\\ 는 esbuild를 watch 모드로 실행해, 소스가 바뀔 때마다 ``main.js``\\ 를 다시"
+" 빌드합니다 — 플러그인 자체를 개발할 때 유용합니다."
 
-#: ../../installation.rst:48 c309aede4e544bb195fd99b8dd9fe12c
+#: ../../installation.rst:59 0529f38866204dd299de5768db7c2e9d
 msgid ""
 "Once installed, continue to :doc:`usage` to set up a CardDAV server "
 "profile."
 msgstr "설치가 끝났다면 :doc:`usage`\\ 로 이동해 CardDAV 서버 프로필을 설정하세요."
+
+#~ msgid ""
+#~ "**harang-contacts** is not yet published"
+#~ " to the Obsidian Community Plugins "
+#~ "directory, so for now it must be"
+#~ " built (or downloaded pre-built) and"
+#~ " installed manually."
+#~ msgstr ""
+#~ "**harang-contacts**\\ 는 아직 Obsidian 커뮤니티"
+#~ " 플러그인 목록에 등록되지 않았습니다. 그래서 지금은 "
+#~ "직접 빌드하거나(또는 미리 빌드된 파일을 받아서) 수동으로"
+#~ " 설치해야 합니다."
+

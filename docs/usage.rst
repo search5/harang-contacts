@@ -5,7 +5,7 @@ Adding a CardDAV server profile
 ------------------------------------
 
 1. Open **Settings → Harang Contacts**.
-2. Click **Add a new server profile**.
+2. Click **Add CardDAV server**.
 3. Fill in the profile:
 
 .. list-table::
@@ -34,28 +34,30 @@ books on the same server); contacts from all of them are merged.
 Referencing a contact in a note
 -------------------------------------
 
-Type ``@contact[`` followed by (part of) a name:
+Type ``{{hrcard:`` to start a staged reference:
 
 .. code-block:: text
 
-   Meeting notes with @contact[Jane
+   Meeting notes with {{hrcard:
 
-An autocomplete popup lists matching contacts from all configured servers'
-cached address books. If a name matches more than one contact, the popup
-also shows each candidate's organization and server profile name so you can
-tell them apart.
+1. An autocomplete popup lists your registered **server profile names**;
+   typing narrows it. Selecting one appends ``<profileName>:`` and
+   immediately opens the next stage.
+2. The popup now lists that profile's **contacts by name** (searched with a
+   case-insensitive substring match), showing each candidate's organization
+   and email as a hint.
 
-Selecting a suggestion inserts the full reference and renders it as a
-chip — the contact's name, plus their email address if they have one, in a
-rounded pill. This works the same way in both Live Preview and Reading
-view.
+Selecting a contact inserts ``{{hrcard:<profileName>:<uid>}}`` and renders
+it as a chip — the contact's name, plus their email address if they have
+one, in a rounded pill. This works the same way in both Live Preview and
+Reading view.
 
 .. note::
 
-   The inserted syntax stores a hidden reference (server profile + CardDAV
-   UID) alongside the display name, so the chip always resolves to the
-   exact contact you picked — even if another contact happens to share the
-   same name.
+   The inserted syntax stores the server profile and CardDAV UID, not the
+   display name, so the chip always resolves to the exact contact you
+   picked — even if another contact happens to share the same name, and
+   even if their name changes on the server later.
 
 Viewing contact details
 -----------------------------

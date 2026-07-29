@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: harang-contacts 0.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-26 19:28+0900\n"
+"POT-Creation-Date: 2026-07-29 10:16+0900\n"
 "PO-Revision-Date: 2026-07-26 19:28+0900\n"
 "Last-Translator: Ji-Ho Lee <search5@mz.co.kr>\n"
 "Language: ko\n"
@@ -19,61 +19,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: ../../usage.rst:2 3899d211f61a49c7ac905e9a84c118ef
+#: ../../usage.rst:2 b07c48d8544f4c87af686b5c428a8503
 msgid "Usage"
 msgstr "사용법"
 
-#: ../../usage.rst:5 d97d8637f7064a9988b49c7d67f52119
+#: ../../usage.rst:5 9df589588e074cfab2cce4b3c69550d2
 msgid "Adding a CardDAV server profile"
 msgstr "CardDAV 서버 프로필 추가하기"
 
-#: ../../usage.rst:7 2fca27a735f84cf2abc778d5a3fa96a5
+#: ../../usage.rst:7 4d836fa1e8274559b10c175d5dcf96e1
 msgid "Open **Settings → Harang Contacts**."
 msgstr "**설정 → Harang Contacts**\\ 를 여세요."
 
-#: ../../usage.rst:8 4a8c3360b9e94ec69fd3e0af140edcdc
-msgid "Click **Add a new server profile**."
-msgstr "**새 서버 프로필 추가**\\ 를 클릭하세요."
+#: ../../usage.rst:8 c85702849af54c71ba9d8a3c7b124d51
+msgid "Click **Add CardDAV server**."
+msgstr "**CardDAV 서버 추가**\\ 를 클릭하세요."
 
-#: ../../usage.rst:9 8f31b4ce040b498c813447ee984f02b8
+#: ../../usage.rst:9 507d33d35ebe43ca962b2108cff8fa8b
 msgid "Fill in the profile:"
 msgstr "프로필 정보를 입력하세요:"
 
-#: ../../usage.rst:14 9b859918e0ac4395bd3586feeaaa25f0
+#: ../../usage.rst:14 86e26084beb747e4a31711a5458260d1
 msgid "Field"
 msgstr "필드"
 
-#: ../../usage.rst:15 13a64784fc3946d993ead05d8d114561
+#: ../../usage.rst:15 959918b44c8f4049b449bec8c2a268a4
 msgid "Description"
 msgstr "설명"
 
-#: ../../usage.rst:16 25cb0007f82a4655bd08cad2ea085b2e
+#: ../../usage.rst:16 fb959f2eab2d494f82c1e96ebc9417ed
 msgid "Profile name"
 msgstr "프로필 이름"
 
-#: ../../usage.rst:17 5acc3ec400944d1aa2fb68a4f96ccd58
+#: ../../usage.rst:17 0667ccc5266e42108497dc57784c777e
 msgid ""
 "A label for this server, shown when a contact's name is ambiguous across "
 "servers."
 msgstr "이 서버를 가리키는 라벨로, 여러 서버에 걸쳐 연락처 이름이 겹칠 때 함께 표시됩니다."
 
-#: ../../usage.rst:19 455f2d96794e41e8b814d99243d0d88a
+#: ../../usage.rst:19 288f03bbfb574b398b75a3f59c757b2f
 msgid "Server URL"
 msgstr "서버 URL"
 
-#: ../../usage.rst:20 d10303e642964c988707b62ebe152819
+#: ../../usage.rst:20 65503429240c45faba2d3b52cfe1a277
 msgid "The CardDAV base URL, or the exact address book collection URL."
 msgstr "CardDAV 기본 URL 또는 정확한 주소록 컬렉션 URL입니다."
 
-#: ../../usage.rst:21 daa987df45f8462d8375e992018d5948
+#: ../../usage.rst:21 925c8c87007e41879888047538dd2b5c
 msgid "Username / Password"
 msgstr "사용자명 / 비밀번호"
 
-#: ../../usage.rst:22 f09aac5c88004be4a2c232ad3d8b724f
+#: ../../usage.rst:22 49cc16ea753948ccbf9df472e8aeca33
 msgid "Your CardDAV account credentials."
 msgstr "CardDAV 계정 자격 증명입니다."
 
-#: ../../usage.rst:24 e70861afba1745a68e248fc02937d6ef
+#: ../../usage.rst:24 32864565ac744d1eacb39e142929d60c
 msgid ""
 "Click **Test connection & auto-discover**. The plugin walks the standard "
 "CardDAV discovery chain (``current-user-principal`` → ``addressbook-home-"
@@ -82,90 +82,117 @@ msgid ""
 "address book collection, it is used as-is without further discovery."
 msgstr ""
 "**연결 테스트 및 자동탐색**\\ 을 클릭하세요. 플러그인이 표준 CardDAV 탐색 절차(``current-user-"
-"principal`` → ``addressbook-home-set`` → 주소록 컬렉션)를 따라가며 찾아낸 주소록 URL을 "
-"자동으로 채웁니다. Server URL이 이미 주소록 컬렉션을 직접 가리키고 있다면, 추가 탐색 없이 그대로 사용됩니다."
+"principal`` → ``addressbook-home-set`` → 주소록 컬렉션)를 따라가며 찾아낸 주소록 URL을 자동으로"
+" 채웁니다. Server URL이 이미 주소록 컬렉션을 직접 가리키고 있다면, 추가 탐색 없이 그대로 사용됩니다."
 
-#: ../../usage.rst:31 90d151e7b7704609807b9a405219a3fa
+#: ../../usage.rst:31 4f32b7427f894fd998716feaec546e51
 msgid ""
 "You can add multiple profiles (for multiple servers, or multiple address "
 "books on the same server); contacts from all of them are merged."
 msgstr "여러 프로필을 추가할 수 있으며(여러 서버, 또는 같은 서버의 여러 주소록), 모든 프로필의 연락처가 합쳐져 사용됩니다."
 
-#: ../../usage.rst:35 3c91ebfd8c5d45b5bf790ee74a15e8b3
+#: ../../usage.rst:35 3e4d05a959524405adb2f85522049613
 msgid "Referencing a contact in a note"
 msgstr "노트에서 연락처 참조하기"
 
-#: ../../usage.rst:37 d6a72cb64d2349178ca0772351e79eea
-msgid "Type ``@contact[`` followed by (part of) a name:"
-msgstr "``@contact[``\\ 를 입력하고 이어서 이름(의 일부)을 입력하세요:"
+#: ../../usage.rst:37 d275227d7a4242eca4bfa98f92d74a65
+msgid "Type ``{{hrcard:`` to start a staged reference:"
+msgstr "``{{hrcard:``\\ 를 입력해 단계별 참조를 시작하세요:"
 
-#: ../../usage.rst:43 301eb8dbf0d141c1b4910b27e96c3b1e
+#: ../../usage.rst:43 1296b50c1c044cf1bea56c0895162e4e
 msgid ""
-"An autocomplete popup lists matching contacts from all configured "
-"servers' cached address books. If a name matches more than one contact, "
-"the popup also shows each candidate's organization and server profile "
-"name so you can tell them apart."
+"An autocomplete popup lists your registered **server profile names**; "
+"typing narrows it. Selecting one appends ``<profileName>:`` and "
+"immediately opens the next stage."
 msgstr ""
-"설정된 모든 서버의 캐시된 주소록에서 일치하는 연락처 목록이 자동완성 팝업으로 나타납니다. 이름이 여러 연락처와 일치하면, "
-"각 후보의 조직명과 서버 프로필 이름도 함께 보여줘 구분할 수 있습니다."
+"등록된 **서버 프로필 이름** 목록이 자동완성 팝업으로 나타나며, 입력에 따라 범위가 좁혀집니다. 하나를 선택하면 "
+"``<profileName>:``\\ 이 이어붙여지고, 바로 다음 단계가 열립니다."
 
-#: ../../usage.rst:48 41da0b9d4db44aa09fee2340167e0426
+#: ../../usage.rst:46 55ac9d7cd9f94b7da1776b759f563c44
 msgid ""
-"Selecting a suggestion inserts the full reference and renders it as a "
-"chip — the contact's name, plus their email address if they have one, in "
-"a rounded pill. This works the same way in both Live Preview and Reading "
-"view."
+"The popup now lists that profile's **contacts by name** (searched with a "
+"case-insensitive substring match), showing each candidate's organization "
+"and email as a hint."
 msgstr ""
-"제안 항목을 선택하면 전체 참조가 삽입되고, 둥근 알약 모양의 칩 — 연락처 이름과(있다면) 이메일 주소 — 으로 표시됩니다. "
-"라이브 프리뷰와 읽기 모드 모두 동일하게 동작합니다."
+"이제 팝업은 그 프로필의 **연락처를 이름순**\\ 으로 보여주며(대소문자를 구분하지 않는 부분 문자열 검색), 각 후보의"
+" 조직명과 이메일을 힌트로 함께 표시합니다."
 
-#: ../../usage.rst:55 ef024a903c2a4f2d921ffc3304b09261
+#: ../../usage.rst:50 976ef9a086c24d38a6fa9c75d01a3d3b
 msgid ""
-"The inserted syntax stores a hidden reference (server profile + CardDAV "
-"UID) alongside the display name, so the chip always resolves to the exact"
-" contact you picked — even if another contact happens to share the same "
-"name."
+"Selecting a contact inserts ``{{hrcard:<profileName>:<uid>}}`` and "
+"renders it as a chip — the contact's name, plus their email address if "
+"they have one, in a rounded pill. This works the same way in both Live "
+"Preview and Reading view."
 msgstr ""
-"삽입되는 문법에는 표시 이름과 함께 숨겨진 참조(서버 프로필 + CardDAV UID)도 함께 저장되므로, 다른 연락처가 우연히 "
-"같은 이름을 갖고 있더라도 칩은 항상 당신이 선택한 바로 그 연락처를 정확히 가리킵니다."
+"연락처를 선택하면 ``{{hrcard:<profileName>:<uid>}}``\\ 가 삽입되고, 둥근 알약 모양의 칩 — "
+"연락처 이름과(있다면) 이메일 주소 — 으로 표시됩니다. 라이브 프리뷰와 읽기 모드 모두 동일하게 동작합니다."
 
-#: ../../usage.rst:61 a6b92168f91b4920ad53ca26133d334c
+#: ../../usage.rst:57 995bda98df6949eba79a5bbfc28f4df4
+msgid ""
+"The inserted syntax stores the server profile and CardDAV UID, not the "
+"display name, so the chip always resolves to the exact contact you picked"
+" — even if another contact happens to share the same name, and even if "
+"their name changes on the server later."
+msgstr ""
+"삽입되는 문법은 표시 이름이 아니라 서버 프로필과 CardDAV UID를 저장하므로, 다른 연락처가 우연히 같은 이름을 "
+"갖고 있더라도, 그리고 나중에 서버에서 이름이 바뀌더라도 칩은 항상 당신이 선택한 바로 그 연락처를 정확히 "
+"가리킵니다."
+
+#: ../../usage.rst:63 ee6ef9bea9b24a2e99f507ce68f11769
 msgid "Viewing contact details"
 msgstr "연락처 상세 정보 보기"
 
-#: ../../usage.rst:63 43add37f88e84188839a988c20491bab
+#: ../../usage.rst:65 90897ec176424527bf788ed9fd7cecda
 msgid ""
 "Click a chip to open a small card with the contact's email, phone, and "
 "organization (whichever of those fields the CardDAV record has). Click "
 "anywhere outside the card, or press **Esc**, to close it."
 msgstr ""
-"칩을 클릭하면 연락처의 이메일, 전화번호, 조직(CardDAV 레코드에 있는 필드만) 정보를 담은 작은 카드가 열립니다. "
-"카드 바깥을 클릭하거나 **Esc**\\ 를 누르면 닫힙니다."
+"칩을 클릭하면 연락처의 이메일, 전화번호, 조직(CardDAV 레코드에 있는 필드만) 정보를 담은 작은 카드가 열립니다. 카드 "
+"바깥을 클릭하거나 **Esc**\\ 를 누르면 닫힙니다."
 
-#: ../../usage.rst:67 1629d9cf86494077b84669cb1d7034fb
+#: ../../usage.rst:69 32daa5c83bce4fc69c02428859739951
 msgid ""
 "If a chip looks faded with a dashed border, the plugin could not resolve "
 "it to a known contact — most often because the address book cache is "
 "stale. See :doc:`troubleshooting`."
 msgstr ""
-"칩이 흐릿하게 표시되고 점선 테두리가 보인다면, 플러그인이 그 참조를 알려진 연락처로 해석하지 못한 것입니다 — 대부분 "
-"주소록 캐시가 오래됐기 때문입니다. :doc:`troubleshooting`\\ 을 참고하세요."
+"칩이 흐릿하게 표시되고 점선 테두리가 보인다면, 플러그인이 그 참조를 알려진 연락처로 해석하지 못한 것입니다 — 대부분 주소록 "
+"캐시가 오래됐기 때문입니다. :doc:`troubleshooting`\\ 을 참고하세요."
 
-#: ../../usage.rst:72 5940bdd89fa64184a54e52d1445e2be3
+#: ../../usage.rst:74 b83430bed6874159b32d0ce304367560
 msgid "Refreshing the address book cache"
 msgstr "주소록 캐시 새로고침하기"
 
-#: ../../usage.rst:74 02d257c52a2845a0895227121caaa491
+#: ../../usage.rst:76 36a3024b8b6f4c44a58d1403a8112708
 msgid ""
 "Contacts are cached and refreshed automatically once the cache lifetime "
 "(configurable in settings, default 30 minutes) elapses. To refresh "
 "immediately:"
 msgstr "연락처는 캐시되며, 설정에서 정한 캐시 유효 시간(기본 30분)이 지나면 자동으로 새로고침됩니다. 즉시 새로고침하려면:"
 
-#: ../../usage.rst:78 2273365115904df2a8ef57bcb4e3d440
+#: ../../usage.rst:80 438cb19cedf54a64b513b5a7f5770cc2
 msgid "Run the **Refresh contacts** command from the command palette, or"
 msgstr "명령 팔레트에서 **주소록 새로고침** 명령을 실행하거나,"
 
-#: ../../usage.rst:79 02f01c0b48eb453eb310854dce1bd8d2
+#: ../../usage.rst:81 b2451039d5ed4b4da51c95a3a7301863
 msgid "Click **Refresh** next to **Refresh all address books now** in settings."
 msgstr "설정에서 **지금 모든 주소록 새로고침** 옆의 **새로고침**\\ 을 클릭하세요."
+
+#~ msgid "Type ``@contact[`` followed by (part of) a name:"
+#~ msgstr "``@contact[``\\ 를 입력하고 이어서 이름(의 일부)을 입력하세요:"
+
+#~ msgid ""
+#~ "An autocomplete popup lists matching "
+#~ "contacts from all configured servers' "
+#~ "cached address books. If a name "
+#~ "matches more than one contact, the "
+#~ "popup also shows each candidate's "
+#~ "organization and server profile name so"
+#~ " you can tell them apart."
+#~ msgstr ""
+#~ "설정된 모든 서버의 캐시된 주소록에서 일치하는 연락처 "
+#~ "목록이 자동완성 팝업으로 나타납니다. 이름이 여러 연락처와"
+#~ " 일치하면, 각 후보의 조직명과 서버 프로필 이름도"
+#~ " 함께 보여줘 구분할 수 있습니다."
+

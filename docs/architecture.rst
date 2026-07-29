@@ -40,14 +40,13 @@ All of the plugin's logic lives under ``src/``:
      - ``ContactStore``: merges and caches contacts from every configured
        profile, with TTL-based staleness and search/lookup helpers.
    * - ``editorSuggest.ts``
-     - ``ContactEditorSuggest``: triggers on ``@contact[``, searches the
-       cached contact store, and inserts the selected contact's reference.
-   * - ``render/contactRef.ts``
-     - Parses and formats the ``name|profileId|uid`` reference syntax, and
-       resolves a reference back to a ``Contact`` (falling back to a
-       name-only search if the UID is no longer in the cache).
+     - ``HrcardEditorSuggest``: triggers on ``{{hrcard:``. A single staged
+       suggester (no separate free-text trigger) - it splits the typed
+       query on ``:`` to figure out which stage it's in - profile name,
+       then that profile's contacts by name - and inserts
+       ``{{hrcard:<profileName>:<uid>}}``.
    * - ``render/livePreview.ts``
-     - A CodeMirror 6 ``ViewPlugin`` that replaces ``@contact[...]`` ranges
+     - A CodeMirror 6 ``ViewPlugin`` that replaces ``{{hrcard:...}}`` ranges
        with chip widgets in Live Preview, skipping ranges the cursor or
        selection currently overlaps so the raw syntax stays editable.
    * - ``render/postProcessor.ts``
@@ -74,7 +73,7 @@ Data flow
         v
    carddav/store.ts          -->  merged, cached Contact[] across profiles
         |
-        +--> editorSuggest.ts        -->  autocomplete while typing
+        +--> editorSuggest.ts (HrcardEditorSuggest)  -->  autocomplete while typing
         |
         +--> render/livePreview.ts   -->  chip widgets (Live Preview)
         |
@@ -86,12 +85,21 @@ Data flow
 Reference syntax
 ------------------
 
-A resolved reference is stored as ``@contact[name|profileId|uid]``. Only
-``name`` is shown in the rendered chip; ``profileId`` and ``uid`` are used
-to look the contact up precisely, so two contacts that happen to share a
-display name (on the same server or different ones) never get confused
-with each other. References typed by hand without the ``|profileId|uid``
-suffix still resolve, by falling back to a plain name search.
+A resolved reference is stored as ``{{hrcard:<profileName>:<uid>}}``.
+``profileName`` and ``uid`` are used to look the contact up precisely, so
+two contacts that happen to share a display name (on the same server or
+different ones) never get confused with each other - the display name
+itself isn't part of the stored syntax at all, only fetched at render time
+from whatever the store currently has for that uid. The profile's
+user-assigned ``name`` is used rather than its internal ``id`` (a randomly
+generated string, stable only for the lifetime of that settings entry) so
+references keep resolving across a profile being deleted and re-added
+under the same name. ``{{...}}`` isn't Obsidian wikilink syntax, so unlike
+a hypothetical ``[[...]]`` form it's never intercepted by Obsidian's own
+link parser - Reading view and Live Preview both match it directly against
+raw text. A hand-typed reference needs the exact CardDAV UID to resolve,
+which isn't practical outside of copying it from an existing reference -
+in practice, always insert references via the ``{{hrcard:`` autocomplete.
 
 No runtime dependencies
 ---------------------------

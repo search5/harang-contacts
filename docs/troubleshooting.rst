@@ -23,35 +23,21 @@ the server root (for example Nextcloud's
 A chip looks faded with a dashed border ("unresolved")
 -------------------------------------------------------------
 
-**Symptom:** a ``@contact[...]`` chip renders with reduced opacity and a
+**Symptom:** a ``{{hrcard:...}}`` chip renders with reduced opacity and a
 dashed border instead of a normal filled chip.
 
 **Cause:** the plugin could not find a matching contact in its current
 cache. This happens when the referenced contact was deleted from the
-server, or when the local cache simply hasn't been refreshed since the
-note was written.
+server, when the local cache simply hasn't been refreshed since the note
+was written, or when the reference was typed by hand with a
+profile name/UID that doesn't actually exist (see :doc:`architecture` -
+the syntax stores profile name + CardDAV UID, not the display name, so a
+hand-typed reference needs the exact UID to resolve at all).
 
 **Fix:** run the **Refresh contacts** command (or click **Refresh** in
 settings), then reopen the note. If the chip is still unresolved after a
-refresh, the contact may genuinely no longer exist on the server.
-
-Two contacts with the same name resolve to the wrong one
--------------------------------------------------------------
-
-**Symptom:** a chip shows the wrong person's email/phone/organization even
-though you picked a specific contact from the autocomplete list.
-
-**Cause:** this should not normally happen — selecting a contact from the
-autocomplete popup stores a hidden ``profileId``/``uid`` reference that
-pins the chip to that exact contact (see :doc:`architecture`). It can only
-happen if the ``@contact[name]`` syntax was typed by hand without going
-through the autocomplete, in which case the plugin falls back to a
-name-only search and picks whichever same-named contact happens to sort
-first.
-
-**Fix:** delete the hand-typed reference and re-insert it via the
-autocomplete popup (type ``@contact[`` and pick from the list) so the
-reference is pinned to the right contact.
+refresh, delete it and re-insert it via the ``{{hrcard:`` autocomplete
+popup instead of typing it by hand.
 
 The plugin doesn't appear after installing
 ------------------------------------------------
@@ -73,7 +59,7 @@ behaves like the old version.
 manual copy step — pulling new source alone does not update the files
 Obsidian actually loads.
 
-**Fix:** run the full update sequence from :doc:`installation`, Method 2:
+**Fix:** run the full update sequence from :doc:`installation`, Method 3:
 
 .. code-block:: bash
 
