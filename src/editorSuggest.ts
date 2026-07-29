@@ -1,21 +1,21 @@
-import {
-	App,
-	Editor,
-	EditorPosition,
-	EditorSuggest,
-	EditorSuggestContext,
-	EditorSuggestTriggerInfo,
-	TFile,
-} from "obsidian";
-import { Contact } from "./types";
+import { App, Editor, EditorPosition, EditorSuggest, EditorSuggestContext, EditorSuggestTriggerInfo, TFile } from "obsidian";
+import { CardDavProfile, Contact } from "./types";
 import { ContactStore } from "./carddav/store";
-import { formatContactRef } from "./render/contactRef";
 
-const TRIGGER = "@contact[";
+const TRIGGER = "{{hrcard:";
 const MAX_SUGGESTIONS = 10;
 
-export class ContactEditorSuggest extends EditorSuggest<Contact> {
-	constructor(app: App, private store: ContactStore) {
+type HrcardSuggestion = { stage: "profile"; name: string } | { stage: "contact"; contact: Contact };
+
+/**
+ * Types "{{hrcard:" and walks profile name -> contact name, one
+ * colon-separated segment at a time - there's no separate free-text
+ * trigger. Each selection appends to the same reference and re-triggers
+ * the next stage, finally inserting
+ * `{{hrcard:<profileName>:<uid>}}`.
+ */
+export class HrcardEditorSuggest extends EditorSuggest<HrcardSuggestion> {
+	constructor(app: App, private profiles: () => CardDavProfile[], private store: ContactStore) {
 		super(app);
 	}
 
@@ -24,53 +24,95 @@ export class ContactEditorSuggest extends EditorSuggest<Contact> {
 		const triggerIndex = line.lastIndexOf(TRIGGER);
 		if (triggerIndex === -1) return null;
 
-		const afterTrigger = line.slice(triggerIndex + TRIGGER.length);
-		if (afterTrigger.includes("]")) return null;
+		const query = line.slice(triggerIndex + TRIGGER.length);
+		// A "}" here means the cursor has moved past an already-closed
+		// reference earlier on the line - don't reopen it.
+		if (query.includes("}")) return null;
 
-		const queryStart: EditorPosition = { line: cursor.line, ch: triggerIndex + TRIGGER.length };
 		return {
-			start: queryStart,
+			start: { line: cursor.line, ch: triggerIndex },
 			end: cursor,
-			query: afterTrigger,
+			query,
 		};
 	}
 
-	getSuggestions(context: EditorSuggestContext): Contact[] {
-		void this.store.refreshIfStale();
-		const isInitialList = context.query.trim().length === 0;
-		return this.store.search(context.query, isInitialList ? MAX_SUGGESTIONS : undefined);
+	getSuggestions(context: EditorSuggestContext): HrcardSuggestion[] {
+		const segments = context.query.split(":");
+
+		if (segments.length === 1) {
+			return this.matchingProfiles(segments[0]);
+		}
+
+		if (segments.length === 2) {
+			void this.store.refreshIfStale();
+			const profileName = segments[0];
+			const query = segments[1];
+			const isInitialList = query.trim().length === 0;
+			return this.store
+				.search(query, isInitialList ? MAX_SUGGESTIONS : undefined, profileName)
+				.map((contact) => ({ stage: "contact" as const, contact }));
+		}
+
+		return [];
 	}
 
-	renderSuggestion(contact: Contact, el: HTMLElement): void {
+	private matchingProfiles(query: string): HrcardSuggestion[] {
+		const q = query.trim().toLowerCase();
+		return this.profiles()
+			.map((p) => p.name)
+			.filter((name) => name.toLowerCase().includes(q))
+			.slice(0, MAX_SUGGESTIONS)
+			.map((name) => ({ stage: "profile" as const, name }));
+	}
+
+	renderSuggestion(suggestion: HrcardSuggestion, el: HTMLElement): void {
+		if (suggestion.stage === "profile") {
+			el.addClass("harang-contacts-suggestion");
+			el.setText(suggestion.name);
+			return;
+		}
+
+		const { contact } = suggestion;
 		el.addClass("harang-contacts-suggestion");
 		el.createDiv({ cls: "harang-contacts-suggestion-name", text: contact.fullName });
 
-		const isAmbiguousName = this.store.getAll().filter((c) => c.fullName === contact.fullName).length > 1;
 		const hints: string[] = [];
 		if (contact.email) hints.push(contact.email);
-		if (isAmbiguousName) {
-			if (contact.org) hints.push(contact.org);
-			hints.push(contact.profileName);
-		}
+		if (contact.org) hints.push(contact.org);
 		if (hints.length > 0) {
 			el.createDiv({ cls: "harang-contacts-suggestion-email", text: hints.join(" · ") });
 		}
 	}
 
-	selectSuggestion(contact: Contact, _evt: MouseEvent | KeyboardEvent): void {
+	selectSuggestion(suggestion: HrcardSuggestion, _evt: MouseEvent | KeyboardEvent): void {
 		if (!this.context) return;
-		const { editor, start, end } = this.context;
-		const ref = formatContactRef(contact);
-		editor.replaceRange(ref, start, end);
+		const { editor, start, end, query } = this.context;
+		const segments = query.split(":");
 
-		// Obsidian's editor may auto-close the `[` from the trigger with a `]`
-		// right after the original `end` position. Skip over it instead of
-		// inserting a second one when it's already there.
-		const afterRef: EditorPosition = { line: start.line, ch: start.ch + ref.length };
-		const nextChar = editor.getRange(afterRef, { line: afterRef.line, ch: afterRef.ch + 1 });
-		if (nextChar !== "]") {
-			editor.replaceRange("]", afterRef, afterRef);
+		let text: string;
+		let closesReference = false;
+		if (suggestion.stage === "profile") {
+			text = `${TRIGGER}${suggestion.name}:`;
+		} else {
+			text = `${TRIGGER}${segments[0]}:${suggestion.contact.uid}}}`;
+			closesReference = true;
 		}
-		editor.setCursor({ line: afterRef.line, ch: afterRef.ch + 1 });
+
+		editor.replaceRange(text, start, end);
+		const afterText = { line: start.line, ch: start.ch + text.length };
+
+		if (closesReference) {
+			// Obsidian's editor likely auto-closed the "{{" from the trigger
+			// with a "}}" right after the original `end` position. Our own
+			// text already closes the reference, so consume up to two stray
+			// "}" left behind instead of leaving them in the note.
+			for (let i = 0; i < 2; i++) {
+				const nextChar = editor.getRange(afterText, { line: afterText.line, ch: afterText.ch + 1 });
+				if (nextChar !== "}") break;
+				editor.replaceRange("", afterText, { line: afterText.line, ch: afterText.ch + 1 });
+			}
+		}
+
+		editor.setCursor(afterText);
 	}
 }

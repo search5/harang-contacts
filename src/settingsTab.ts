@@ -1,8 +1,11 @@
 import { App, Notice, PluginSettingTab, Setting } from "obsidian";
 import type HarangContactsPlugin from "./main";
-import { createEmptyProfile } from "./settings";
+import { createEmptyProfile, createGoogleProfile } from "./settings";
 import { CardDavClient, CardDavError } from "./carddav/client";
 import { CardDavProfile } from "./types";
+import { DeviceCodeModal } from "./google/DeviceCodeModal";
+import { carddavPasswordSecretId, googleTokenSecretId } from "./secrets";
+import { GOOGLE_INTEGRATION_ENABLED } from "./featureFlags";
 import { t } from "./i18n";
 
 const SERVER_URL_PLACEHOLDER = "https://example.com/dav.php/addressbooks/user/contacts/";
@@ -47,16 +50,32 @@ export class HarangContactsSettingTab extends PluginSettingTab {
 			this.renderProfile(containerEl, profile.id);
 		}
 
-		new Setting(containerEl).addButton((btn) =>
-			btn
-				.setButtonText(t("settingsAddProfileName"))
-				.setCta()
-				.onClick(async () => {
+		const addProfileSetting = new Setting(containerEl)
+			.setDesc(t("settingsAddProfileDesc"))
+			.addButton((btn) =>
+				btn.setButtonText(t("settingsAddCarddavProfileButton")).onClick(async () => {
 					this.plugin.settings.profiles.push(createEmptyProfile());
 					await this.plugin.saveSettings();
 					this.display();
 				})
-		);
+			);
+
+		if (GOOGLE_INTEGRATION_ENABLED) {
+			addProfileSetting.addButton((btn) =>
+				btn
+					.setButtonText(t("settingsAddGoogleProfileButton"))
+					.setCta()
+					.onClick(() => {
+						new DeviceCodeModal(this.app, async (connected) => {
+							const profile = createGoogleProfile(connected);
+							this.plugin.settings.profiles.push(profile);
+							await this.plugin.saveSettings();
+							await this.plugin.contactStore.refreshAll();
+							this.display();
+						}).open();
+					})
+			);
+		}
 	}
 
 	private renderProfile(containerEl: HTMLElement, profileId: string): void {
@@ -64,6 +83,32 @@ export class HarangContactsSettingTab extends PluginSettingTab {
 		if (!profile) return;
 
 		const section = containerEl.createDiv({ cls: "harang-contacts-profile" });
+
+		if (profile.google) {
+			new Setting(section)
+				.setName(t("settingsProfileNameLabel"))
+				.setDesc(t("googleConnectedAs", { email: profile.google.email ?? "" }))
+				.addText((text) =>
+					text.setValue(profile.name).onChange(async (value) => {
+						profile.name = value;
+						await this.plugin.saveSettings();
+					})
+				)
+				.addButton((btn) =>
+					btn
+						.setButtonText(t("googleDisconnectButton"))
+						.setWarning()
+						.onClick(async () => {
+							this.plugin.settings.profiles = this.plugin.settings.profiles.filter((p) => p.id !== profileId);
+							this.app.secretStorage.setSecret(carddavPasswordSecretId(profileId), "");
+							this.app.secretStorage.setSecret(googleTokenSecretId(profileId), "");
+							await this.plugin.saveSettings();
+							this.display();
+						})
+				);
+			return;
+		}
+
 		new Setting(section).setName(profile.name || t("settingsUnnamedProfile")).setHeading();
 
 		new Setting(section).setName(t("settingsProfileNameLabel")).addText((text) =>
@@ -90,13 +135,16 @@ export class HarangContactsSettingTab extends PluginSettingTab {
 			})
 		);
 
-		new Setting(section).setName(t("settingsPasswordLabel")).addText((text) => {
-			text.inputEl.type = "password";
-			text.setValue(profile.password).onChange(async (value) => {
-				profile.password = value;
-				await this.plugin.saveSettings();
+		new Setting(section)
+			.setName(t("settingsPasswordLabel"))
+			.setDesc(t("settingsPasswordDesc"))
+			.addText((text) => {
+				text.inputEl.type = "password";
+				text.setValue(profile.password).onChange(async (value) => {
+					profile.password = value;
+					await this.plugin.saveSettings();
+				});
 			});
-		});
 
 		new Setting(section)
 			.setName(t("settingsAddressBookUrlLabel"))
@@ -119,6 +167,7 @@ export class HarangContactsSettingTab extends PluginSettingTab {
 				.setWarning()
 				.onClick(async () => {
 					this.plugin.settings.profiles = this.plugin.settings.profiles.filter((p) => p.id !== profileId);
+					this.app.secretStorage.setSecret(carddavPasswordSecretId(profileId), "");
 					await this.plugin.saveSettings();
 					this.display();
 				})

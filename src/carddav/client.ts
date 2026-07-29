@@ -31,16 +31,12 @@ function resolveUrl(base: string, href: string): string {
 export class CardDavClient {
 	constructor(private profile: CardDavProfile) {}
 
-	private authHeader(): string {
-		return basicAuthHeader(this.profile.username, this.profile.password);
-	}
-
 	private async dav(url: string, method: string, depth: string, body: string): Promise<{ status: number; text: string; url: string }> {
 		const res = await requestUrl({
 			url,
 			method,
 			headers: {
-				Authorization: this.authHeader(),
+				Authorization: basicAuthHeader(this.profile.username, this.profile.password),
 				"Content-Type": "application/xml; charset=utf-8",
 				Depth: depth,
 			},
@@ -48,7 +44,8 @@ export class CardDavClient {
 			throw: false,
 		});
 		if (res.status >= 400) {
-			throw new CardDavError(t("davRequestFailed", { method, url, status: res.status }));
+			const bodySnippet = res.text ? `: ${res.text.slice(0, 500)}` : "";
+			throw new CardDavError(t("davRequestFailed", { method, url, status: res.status }) + bodySnippet);
 		}
 		return { status: res.status, text: res.text, url };
 	}
@@ -91,8 +88,9 @@ export class CardDavClient {
 			const doc = this.parseMultistatus(selfCheck.text);
 			const response = doc.getElementsByTagNameNS(DAV_NS, "response")[0];
 			if (response && this.hasResourceType(response, CARDDAV_NS, "addressbook")) {
+				const href = response.getElementsByTagNameNS(DAV_NS, "href")[0]?.textContent?.trim();
 				const displayName = this.firstText(response, DAV_NS, "displayname") || this.profile.name;
-				return [{ url: base, displayName }];
+				return [{ url: href ? resolveUrl(selfCheck.url, href) : base, displayName }];
 			}
 		} catch {
 			// Ignore and fall through to discovery
@@ -113,6 +111,7 @@ export class CardDavClient {
 			// Ignore if base isn't an absolute URL
 		}
 
+		let lastError: unknown;
 		for (const candidate of candidates) {
 			try {
 				const res = await this.dav(
@@ -126,11 +125,12 @@ export class CardDavClient {
 				const href = doc.getElementsByTagNameNS(DAV_NS, "current-user-principal")[0]
 					?.getElementsByTagNameNS(DAV_NS, "href")[0]?.textContent?.trim();
 				if (href) return resolveUrl(res.url, href);
-			} catch {
-				// Try the next candidate
+			} catch (e) {
+				lastError = e;
 			}
 		}
-		throw new CardDavError(t("davPrincipalNotFound"));
+		const detail = lastError instanceof Error ? `: ${lastError.message}` : "";
+		throw new CardDavError(t("davPrincipalNotFound") + detail);
 	}
 
 	private async findAddressBookHomeSet(principalUrl: string): Promise<string> {
@@ -180,6 +180,7 @@ export class CardDavClient {
 			`<?xml version="1.0" encoding="utf-8"?>
 <C:addressbook-query xmlns:D="DAV:" xmlns:C="urn:ietf:params:xml:ns:carddav">
 <D:prop><D:getetag/><C:address-data/></D:prop>
+<C:filter test="allof"/>
 </C:addressbook-query>`
 		);
 		const doc = this.parseMultistatus(res.text);
@@ -190,7 +191,7 @@ export class CardDavClient {
 			const vcardText = this.firstText(response, CARDDAV_NS, "address-data");
 			const etag = this.firstText(response, DAV_NS, "getetag");
 			if (!href || !vcardText) continue;
-			const contact = parseVCard(vcardText, this.profile.id, this.profile.name, resolveUrl(res.url, href), etag);
+			const contact = parseVCard(vcardText, this.profile.name, resolveUrl(res.url, href), etag);
 			if (contact) contacts.push(contact);
 		}
 		return contacts;

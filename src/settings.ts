@@ -1,4 +1,5 @@
-import { HarangContactsSettings } from "./types";
+import { CardDavProfile, HarangContactsSettings } from "./types";
+import type { GoogleAccount } from "./google/types";
 import { t } from "./i18n";
 
 export const DEFAULT_SETTINGS: HarangContactsSettings = {
@@ -6,7 +7,7 @@ export const DEFAULT_SETTINGS: HarangContactsSettings = {
 	cacheTtlMinutes: 30,
 };
 
-export function createEmptyProfile(): import("./types").CardDavProfile {
+export function createEmptyProfile(): CardDavProfile {
 	return {
 		id: `profile-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
 		name: t("settingsNewProfileDefaultName"),
@@ -14,5 +15,18 @@ export function createEmptyProfile(): import("./types").CardDavProfile {
 		username: "",
 		password: "",
 		addressBookUrl: null,
+		google: null,
+	};
+}
+
+export function createGoogleProfile(google: GoogleAccount): CardDavProfile {
+	return {
+		id: `profile-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+		name: t("settingsNewGoogleProfileDefaultName"),
+		serverUrl: "",
+		username: "",
+		password: "",
+		addressBookUrl: null,
+		google,
 	};
 }

@@ -104,3 +104,21 @@
 	border: 1px solid var(--background-modifier-border);
 	border-radius: 6px;
 }
+
+.harang-contacts-google-device-code {
+	font-family: var(--font-monospace);
+	font-size: var(--font-ui-larger);
+	font-weight: 600;
+	letter-spacing: 0.15em;
+	text-align: center;
+	padding: var(--size-4-3);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	background-color: var(--background-secondary);
+	user-select: all;
+}
+
+.harang-contacts-google-device-waiting {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}

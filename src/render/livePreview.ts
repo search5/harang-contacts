@@ -4,22 +4,20 @@ import { Decoration, DecorationSet, EditorView, ViewPlugin, ViewUpdate, WidgetTy
 import { editorLivePreviewField } from "obsidian";
 import { ContactStore } from "../carddav/store";
 import { createContactChip } from "./chip";
-import { parseContactRef, resolveContactRef } from "./contactRef";
 
-const CONTACT_RE = /@contact\[([^\]]+)\]/g;
+const HRCARD_RE = /\{\{hrcard:([^:}]+):([^}]+)\}\}/g;
 
 class ContactWidget extends WidgetType {
-	constructor(private raw: string, private store: ContactStore) {
+	constructor(private profileName: string, private uid: string, private store: ContactStore) {
 		super();
 	}
 
 	eq(other: ContactWidget): boolean {
-		return other.raw === this.raw;
+		return other.profileName === this.profileName && other.uid === this.uid;
 	}
 
 	toDOM(): HTMLElement {
-		const ref = parseContactRef(this.raw);
-		return createContactChip(resolveContactRef(this.store, ref), ref.name);
+		return createContactChip(this.store.getByUid(this.uid, this.profileName), this.uid);
 	}
 }
 
@@ -49,9 +47,9 @@ export function buildContactLivePreviewPlugin(store: ContactStore) {
 
 				for (const { from, to } of view.visibleRanges) {
 					const text = view.state.doc.sliceString(from, to);
-					CONTACT_RE.lastIndex = 0;
+					HRCARD_RE.lastIndex = 0;
 					let match: RegExpExecArray | null;
-					while ((match = CONTACT_RE.exec(text))) {
+					while ((match = HRCARD_RE.exec(text))) {
 						const start = from + match.index;
 						const end = start + match[0].length;
 
@@ -61,7 +59,8 @@ export function buildContactLivePreviewPlugin(store: ContactStore) {
 						const overlapsSelection = selection.ranges.some((r) => r.from <= end && r.to >= start);
 						if (overlapsSelection) continue;
 
-						builder.add(start, end, Decoration.replace({ widget: new ContactWidget(match[1], store) }));
+						const [, profileName, uid] = match;
+						builder.add(start, end, Decoration.replace({ widget: new ContactWidget(profileName, uid, store) }));
 					}
 				}
 

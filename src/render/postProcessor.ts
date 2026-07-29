@@ -1,9 +1,8 @@
 import { MarkdownPostProcessorContext } from "obsidian";
 import { ContactStore } from "../carddav/store";
 import { createContactChip } from "./chip";
-import { parseContactRef, resolveContactRef } from "./contactRef";
 
-const CONTACT_RE = /@contact\[([^\]]+)\]/g;
+const HRCARD_RE = /\{\{hrcard:([^:}]+):([^}]+)\}\}/g;
 
 export function createContactPostProcessor(store: ContactStore) {
 	return (el: HTMLElement, _ctx: MarkdownPostProcessorContext) => {
@@ -20,8 +19,8 @@ export function createContactPostProcessor(store: ContactStore) {
 		while ((node = walker.nextNode())) {
 			const text = node.textContent;
 			if (!text) continue;
-			CONTACT_RE.lastIndex = 0;
-			if (CONTACT_RE.test(text)) targets.push(node as Text);
+			HRCARD_RE.lastIndex = 0;
+			if (HRCARD_RE.test(text)) targets.push(node as Text);
 		}
 
 		for (const textNode of targets) {
@@ -37,14 +36,14 @@ function replaceInTextNode(textNode: Text, store: ContactStore): void {
 
 	const fragment = createFragment();
 	let lastIndex = 0;
-	CONTACT_RE.lastIndex = 0;
+	HRCARD_RE.lastIndex = 0;
 	let match: RegExpExecArray | null;
-	while ((match = CONTACT_RE.exec(text))) {
+	while ((match = HRCARD_RE.exec(text))) {
 		if (match.index > lastIndex) {
 			fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
 		}
-		const ref = parseContactRef(match[1]);
-		fragment.appendChild(createContactChip(resolveContactRef(store, ref), ref.name));
+		const [, profileName, uid] = match;
+		fragment.appendChild(createContactChip(store.getByUid(uid, profileName), uid));
 		lastIndex = match.index + match[0].length;
 	}
 	if (lastIndex < text.length) {
