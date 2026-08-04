@@ -45,7 +45,7 @@ The plugin doesn't appear after installing
 **Fix:** confirm ``main.js``, ``manifest.json``, and ``styles.css`` are
 directly inside ``<vault>/.obsidian/plugins/harang-contacts/`` (not a
 subfolder), that the plugin is enabled under
-**Settings → Community plugins**, and that Obsidian is on version 1.12.7 or
+**Settings → Community plugins**, and that Obsidian is on version 1.13.4 or
 later (see :doc:`prerequisites`). Fully restart Obsidian after installing
 or updating the files.
 

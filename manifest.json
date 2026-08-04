@@ -1,8 +1,8 @@
 {
 	"id": "harang-contacts",
 	"name": "Harang Contacts",
-	"version": "0.0.5",
-	"minAppVersion": "1.12.7",
+	"version": "0.0.6",
+	"minAppVersion": "1.13.4",
 	"description": "Reference contacts from a CardDAV address book directly in your notes.",
 	"author": "search5",
 	"authorUrl": "",
