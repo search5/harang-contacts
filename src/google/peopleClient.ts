@@ -48,7 +48,7 @@ export class GooglePeopleClient {
 		return this.account.accessToken;
 	}
 
-	async fetchContacts(profileName: string): Promise<Contact[]> {
+	async fetchContacts(profileId: string, profileName: string): Promise<Contact[]> {
 		const contacts: Contact[] = [];
 		let pageToken: string | undefined;
 		do {
@@ -66,7 +66,7 @@ export class GooglePeopleClient {
 			}
 			const json = res.json as ListConnectionsResponse;
 			for (const person of json.connections ?? []) {
-				const contact = this.toContact(person, profileName);
+				const contact = this.toContact(person, profileId, profileName);
 				if (contact) contacts.push(contact);
 			}
 			pageToken = json.nextPageToken;
@@ -74,12 +74,13 @@ export class GooglePeopleClient {
 		return contacts;
 	}
 
-	private toContact(person: PeopleApiPerson, profileName: string): Contact | null {
+	private toContact(person: PeopleApiPerson, profileId: string, profileName: string): Contact | null {
 		const resourceName = person.resourceName;
 		const fullName = person.names?.[0]?.displayName;
 		if (!resourceName || !fullName) return null;
 		return {
 			uid: resourceName,
+			profileId,
 			profileName,
 			fullName,
 			email: person.emailAddresses?.[0]?.value ?? null,

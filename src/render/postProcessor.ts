@@ -42,8 +42,8 @@ function replaceInTextNode(textNode: Text, store: ContactStore): void {
 		if (match.index > lastIndex) {
 			fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
 		}
-		const [, profileName, uid] = match;
-		fragment.appendChild(createContactChip(store.getByUid(uid, profileName), uid));
+		const [, profileId, uid] = match;
+		fragment.appendChild(createContactChip(store.getByUid(uid, profileId), uid));
 		lastIndex = match.index + match[0].length;
 	}
 	if (lastIndex < text.length) {

@@ -46,7 +46,7 @@ All of the plugin's logic lives under ``src/``:
        suggester (no separate free-text trigger) - it splits the typed
        query on ``:`` to figure out which stage it's in - profile name,
        then that profile's contacts by name - and inserts
-       ``{{hrcard:<profileName>:<uid>}}``.
+       ``{{hrcard:<profileId>:<uid>}}``.
    * - ``render/livePreview.ts``
      - A CodeMirror 6 ``ViewPlugin`` that replaces ``{{hrcard:...}}`` ranges
        with chip widgets in Live Preview, skipping ranges the cursor or
@@ -87,21 +87,30 @@ Data flow
 Reference syntax
 ------------------
 
-A resolved reference is stored as ``{{hrcard:<profileName>:<uid>}}``.
-``profileName`` and ``uid`` are used to look the contact up precisely, so
+A resolved reference is stored as ``{{hrcard:<profileId>:<uid>}}``.
+``profileId`` and ``uid`` are used to look the contact up precisely, so
 two contacts that happen to share a display name (on the same server or
 different ones) never get confused with each other - the display name
 itself isn't part of the stored syntax at all, only fetched at render time
-from whatever the store currently has for that uid. The profile's
-user-assigned ``name`` is used rather than its internal ``id`` (a randomly
-generated string, stable only for the lifetime of that settings entry) so
-references keep resolving across a profile being deleted and re-added
-under the same name. ``{{...}}`` isn't Obsidian wikilink syntax, so unlike
-a hypothetical ``[[...]]`` form it's never intercepted by Obsidian's own
-link parser - Reading view and Live Preview both match it directly against
-raw text. A hand-typed reference needs the exact CardDAV UID to resolve,
-which isn't practical outside of copying it from an existing reference -
-in practice, always insert references via the ``{{hrcard:`` autocomplete.
+from whatever the store currently has for that uid. The profile's internal
+``id`` (a string generated once when the profile is created and never
+changed afterwards) is used rather than its user-assigned ``name``, so
+renaming a profile in settings no longer breaks references written after
+this change - ``editorSuggest.ts`` still searches and lists profiles by
+their display name at stage 1 of the autocomplete, it just silently
+substitutes the id when composing the inserted text. This is **not**
+backward compatible: references inserted before this change stored the
+profile's *name* instead, and there is no id-or-name fallback resolver, so
+such a reference stops resolving as soon as its profile is renamed (or
+immediately, if the segment simply no longer matches any current profile)
+and must be deleted and re-inserted via the ``{{hrcard:`` autocomplete.
+``{{...}}`` isn't Obsidian wikilink syntax, so unlike a hypothetical
+``[[...]]`` form it's never intercepted by Obsidian's own link parser -
+Reading view and Live Preview both match it directly against raw text. A
+hand-typed reference needs the exact profile id and CardDAV UID to
+resolve, neither of which is shown anywhere in the UI and so isn't
+practical outside of copying them from an existing reference - in
+practice, always insert references via the ``{{hrcard:`` autocomplete.
 
 No runtime dependencies
 ---------------------------

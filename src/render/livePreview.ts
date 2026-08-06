@@ -8,16 +8,16 @@ import { createContactChip } from "./chip";
 const HRCARD_RE = /\{\{hrcard:([^:}]+):([^}]+)\}\}/g;
 
 class ContactWidget extends WidgetType {
-	constructor(private profileName: string, private uid: string, private store: ContactStore) {
+	constructor(private profileId: string, private uid: string, private store: ContactStore) {
 		super();
 	}
 
 	eq(other: ContactWidget): boolean {
-		return other.profileName === this.profileName && other.uid === this.uid;
+		return other.profileId === this.profileId && other.uid === this.uid;
 	}
 
 	toDOM(): HTMLElement {
-		return createContactChip(this.store.getByUid(this.uid, this.profileName), this.uid);
+		return createContactChip(this.store.getByUid(this.uid, this.profileId), this.uid);
 	}
 }
 
@@ -62,8 +62,8 @@ export function buildContactLivePreviewPlugin(store: ContactStore) {
 						const overlapsSelection = selection.ranges.some((r) => r.from <= end && r.to >= start);
 						if (overlapsSelection) continue;
 
-						const [, profileName, uid] = match;
-						builder.add(start, end, Decoration.replace({ widget: new ContactWidget(profileName, uid, store) }));
+						const [, profileId, uid] = match;
+						builder.add(start, end, Decoration.replace({ widget: new ContactWidget(profileId, uid, store) }));
 					}
 				}
 

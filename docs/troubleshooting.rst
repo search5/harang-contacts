@@ -29,10 +29,14 @@ dashed border instead of a normal filled chip.
 **Cause:** the plugin could not find a matching contact in its current
 cache. This happens when the referenced contact was deleted from the
 server, when the local cache simply hasn't been refreshed since the note
-was written, or when the reference was typed by hand with a
-profile name/UID that doesn't actually exist (see :doc:`architecture` -
-the syntax stores profile name + CardDAV UID, not the display name, so a
-hand-typed reference needs the exact UID to resolve at all).
+was written, when the reference was typed by hand with a profile
+id/UID that doesn't actually exist, or when the note has a reference that
+was inserted before the profile identifier segment changed from a display
+name to an internal id - such a reference needs to be deleted and
+re-inserted via the ``{{hrcard:`` autocomplete, since there's no
+name-based fallback (see :doc:`architecture` - the syntax stores a
+profile id + CardDAV UID, not either display name, so a hand-typed or
+outdated reference needs the exact current id to resolve at all).
 
 **Fix:** run the **Refresh contacts** command (or click **Refresh** in
 settings), then reopen the note. If the chip is still unresolved after a

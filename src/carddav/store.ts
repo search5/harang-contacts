@@ -15,17 +15,17 @@ export class ContactStore {
 		return this.contacts;
 	}
 
-	getByUid(uid: string, profileName?: string): Contact | undefined {
-		if (profileName) {
-			return this.byUid.get(`${profileName}:${uid}`);
+	getByUid(uid: string, profileId?: string): Contact | undefined {
+		if (profileId) {
+			return this.byUid.get(`${profileId}:${uid}`);
 		}
 		return this.contacts.find((c) => c.uid === uid);
 	}
 
 	/** Case-insensitive search for contacts whose name includes query, optionally scoped to one profile. */
-	search(query: string, limit = Infinity, profileName?: string): Contact[] {
+	search(query: string, limit = Infinity, profileId?: string): Contact[] {
 		const q = query.trim().toLowerCase();
-		const scoped = profileName ? this.contacts.filter((c) => c.profileName === profileName) : this.contacts;
+		const scoped = profileId ? this.contacts.filter((c) => c.profileId === profileId) : this.contacts;
 		const source = q.length === 0 ? scoped : scoped.filter((c) => c.fullName.toLowerCase().includes(q));
 		return source.slice(0, limit);
 	}
@@ -57,7 +57,7 @@ export class ContactStore {
 		});
 
 		this.contacts = merged.sort((a, b) => a.fullName.localeCompare(b.fullName));
-		this.byUid = new Map(this.contacts.map((c) => [`${c.profileName}:${c.uid}`, c]));
+		this.byUid = new Map(this.contacts.map((c) => [`${c.profileId}:${c.uid}`, c]));
 		this.lastFetchedAt = Date.now();
 
 		if (failures.length > 0) {
@@ -72,7 +72,7 @@ export class ContactStore {
 			const client = new GooglePeopleClient(profile.google, (refreshed) => {
 				profile.google = refreshed;
 			});
-			return await client.fetchContacts(profile.name);
+			return await client.fetchContacts(profile.id, profile.name);
 		}
 		if (!profile.addressBookUrl) return [];
 		const client = new CardDavClient(profile);

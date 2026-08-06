@@ -191,7 +191,7 @@ export class CardDavClient {
 			const vcardText = this.firstText(response, CARDDAV_NS, "address-data");
 			const etag = this.firstText(response, DAV_NS, "getetag");
 			if (!href || !vcardText) continue;
-			const contact = parseVCard(vcardText, this.profile.name, resolveUrl(res.url, href), etag);
+			const contact = parseVCard(vcardText, this.profile.id, this.profile.name, resolveUrl(res.url, href), etag);
 			if (contact) contacts.push(contact);
 		}
 		return contacts;

@@ -41,23 +41,30 @@ Type ``{{hrcard:`` to start a staged reference:
    Meeting notes with {{hrcard:
 
 1. An autocomplete popup lists your registered **server profile names**;
-   typing narrows it. Selecting one appends ``<profileName>:`` and
-   immediately opens the next stage.
+   typing narrows it. Selecting one appends ``<profileId>:`` — the
+   profile's internal id, not the name you searched by — and immediately
+   opens the next stage.
 2. The popup now lists that profile's **contacts by name** (searched with a
    case-insensitive substring match), showing each candidate's organization
    and email as a hint.
 
-Selecting a contact inserts ``{{hrcard:<profileName>:<uid>}}`` and renders
+Selecting a contact inserts ``{{hrcard:<profileId>:<uid>}}`` and renders
 it as a chip — the contact's name, plus their email address if they have
 one, in a rounded pill. This works the same way in both Live Preview and
 Reading view.
 
 .. note::
 
-   The inserted syntax stores the server profile and CardDAV UID, not the
-   display name, so the chip always resolves to the exact contact you
-   picked — even if another contact happens to share the same name, and
-   even if their name changes on the server later.
+   The inserted syntax stores the server profile's internal id and the
+   CardDAV UID, not either display name, so the chip always resolves to the
+   exact contact you picked — even if another contact happens to share the
+   same name, even if the contact's name changes on the server later, and
+   even if you rename the profile itself in settings. This id-based scheme
+   only applies going forward: references inserted before this behavior
+   changed stored the profile's *name* instead of its id, so renaming a
+   profile still breaks those older references. There is no fallback
+   between the two — an older reference that stops resolving needs to be
+   deleted and re-inserted via the ``{{hrcard:`` autocomplete.
 
 Viewing contact details
 -----------------------------

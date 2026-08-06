@@ -5,14 +5,16 @@ import { ContactStore } from "./carddav/store";
 const TRIGGER = "{{hrcard:";
 const MAX_SUGGESTIONS = 10;
 
-type HrcardSuggestion = { stage: "profile"; name: string } | { stage: "contact"; contact: Contact };
+type HrcardSuggestion = { stage: "profile"; profile: CardDavProfile } | { stage: "contact"; contact: Contact };
 
 /**
  * Types "{{hrcard:" and walks profile name -> contact name, one
  * colon-separated segment at a time - there's no separate free-text
- * trigger. Each selection appends to the same reference and re-triggers
- * the next stage, finally inserting
- * `{{hrcard:<profileName>:<uid>}}`.
+ * trigger. The first segment is typed/matched by profile *name* (what the
+ * user actually recognizes), but selecting it inserts the profile's stable
+ * *id* instead -- the second segment's search is then scoped by that id, and
+ * the reference finally inserted is `{{hrcard:<profileId>:<uid>}}`, so a
+ * later profile rename never breaks it.
  */
 export class HrcardEditorSuggest extends EditorSuggest<HrcardSuggestion> {
 	constructor(app: App, private profiles: () => CardDavProfile[], private store: ContactStore) {
@@ -45,11 +47,13 @@ export class HrcardEditorSuggest extends EditorSuggest<HrcardSuggestion> {
 
 		if (segments.length === 2) {
 			void this.store.refreshIfStale();
-			const profileName = segments[0];
+			// By this point the editor already holds the id inserted by selectSuggestion()'s
+			// profile-stage branch, not the name typed for the first segment's search.
+			const profileId = segments[0];
 			const query = segments[1];
 			const isInitialList = query.trim().length === 0;
 			return this.store
-				.search(query, isInitialList ? MAX_SUGGESTIONS : undefined, profileName)
+				.search(query, isInitialList ? MAX_SUGGESTIONS : undefined, profileId)
 				.map((contact) => ({ stage: "contact" as const, contact }));
 		}
 
@@ -59,16 +63,15 @@ export class HrcardEditorSuggest extends EditorSuggest<HrcardSuggestion> {
 	private matchingProfiles(query: string): HrcardSuggestion[] {
 		const q = query.trim().toLowerCase();
 		return this.profiles()
-			.map((p) => p.name)
-			.filter((name) => name.toLowerCase().includes(q))
+			.filter((p) => p.name.toLowerCase().includes(q))
 			.slice(0, MAX_SUGGESTIONS)
-			.map((name) => ({ stage: "profile" as const, name }));
+			.map((profile) => ({ stage: "profile" as const, profile }));
 	}
 
 	renderSuggestion(suggestion: HrcardSuggestion, el: HTMLElement): void {
 		if (suggestion.stage === "profile") {
 			el.addClass("harang-contacts-suggestion");
-			el.setText(suggestion.name);
+			el.setText(suggestion.profile.name);
 			return;
 		}
 
@@ -92,7 +95,7 @@ export class HrcardEditorSuggest extends EditorSuggest<HrcardSuggestion> {
 		let text: string;
 		let closesReference = false;
 		if (suggestion.stage === "profile") {
-			text = `${TRIGGER}${suggestion.name}:`;
+			text = `${TRIGGER}${suggestion.profile.id}:`;
 		} else {
 			text = `${TRIGGER}${segments[0]}:${suggestion.contact.uid}}}`;
 			closesReference = true;

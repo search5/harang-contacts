@@ -8,7 +8,7 @@ An [Obsidian](https://obsidian.md) plugin that lets you reference contacts from 
 
 ## Features
 
-- **`{{hrcard:` staged autocomplete** — type `{{hrcard:` and pick a server profile, then a contact name, from one staged popup (the same pattern as the sibling `harang-calendar` plugin's `{{hrcal:` trigger). Inserts `{{hrcard:<profileName>:<uid>}}`.
+- **`{{hrcard:` staged autocomplete** — type `{{hrcard:` and pick a server profile, then a contact name, from one staged popup (the same pattern as the sibling `harang-calendar` plugin's `{{hrcal:` trigger). Inserts `{{hrcard:<profileId>:<uid>}}` — `profileId` is the profile's internal id, not its display name (it's auto-inserted, you never type it), so renaming a profile in settings no longer breaks new references. References already inserted before this change used the profile name instead and will need to be recreated via the autocomplete.
 - **Inline chips, in both Live Preview and Reading view** — a reference renders as a rounded pill showing the contact's name (and email, if they have one), not raw syntax.
 - **Click-to-open detail card** — click a chip to see email, phone, and organization; click outside or press Esc to close.
 - **Unambiguous even with duplicate names** — a picked reference is pinned to the exact contact (server profile + CardDAV UID), so two people sharing a name never get confused with each other.

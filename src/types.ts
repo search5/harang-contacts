@@ -19,6 +19,13 @@ export interface CardDavProfile {
 
 export interface Contact {
 	uid: string;
+	/** Stable profile id -- what {{hrcard:...}} references embed, so renaming a profile never
+	 * breaks an existing note reference. See profileName below for the display-only counterpart. */
+	profileId: string;
+	/** Snapshot of the owning profile's display name as of this contact's last fetch -- shown on
+	 * the contact card as "source: X", refreshed naturally on the next refreshAll(). Never used
+	 * for identity/lookup (that's profileId); a rename between refreshes just shows briefly stale
+	 * text here, it never breaks anything. */
 	profileName: string;
 	fullName: string;
 	email: string | null;

@@ -35,7 +35,13 @@ function parseLine(line: string): VCardLine | null {
 }
 
 /** Parses a single vCard (VERSION 3/4) text blob into a Contact. Returns null if no FN/UID present. */
-export function parseVCard(text: string, profileName: string, sourceUrl: string, etag: string | null): Contact | null {
+export function parseVCard(
+	text: string,
+	profileId: string,
+	profileName: string,
+	sourceUrl: string,
+	etag: string | null
+): Contact | null {
 	const lines = unfold(text).split("\n").filter((l) => l.trim().length > 0);
 
 	let fullName: string | null = null;
@@ -72,6 +78,7 @@ export function parseVCard(text: string, profileName: string, sourceUrl: string,
 
 	return {
 		uid,
+		profileId,
 		profileName,
 		fullName,
 		email,
