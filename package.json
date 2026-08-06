@@ -1,7 +1,7 @@
 {
 	"name": "harang-contacts",
 	"version": "0.0.8",
-	"description": "CardDAV 서버의 주소록을 노트에서 참조할 수 있게 해주는 Obsidian 플러그인",
+	"description": "Reference contacts from a CardDAV address book directly in your notes.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
