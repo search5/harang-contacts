@@ -4,7 +4,7 @@
 	"version": "0.0.8",
 	"minAppVersion": "1.13.4",
 	"description": "Reference contacts from a CardDAV address book directly in your notes.",
-	"author": "search5",
-	"authorUrl": "",
+	"author": "Ji-Ho Lee",
+	"authorUrl": "https://www.flask.moe",
 	"isDesktopOnly": false
 }
