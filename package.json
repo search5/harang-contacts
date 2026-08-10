@@ -1,6 +1,6 @@
 {
 	"name": "harang-contacts",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "Reference contacts from a CardDAV address book directly in your notes.",
 	"main": "main.js",
 	"scripts": {
