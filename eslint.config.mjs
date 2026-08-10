@@ -13,6 +13,6 @@ export default tseslint.config(
 		},
 	},
 	{
-		ignores: ["main.js", "esbuild.config.mjs", "version-bump.mjs", "eslint.config.mjs", "node_modules/**", "docs/**"],
+		ignores: ["main.js", "esbuild.config.mjs", "version-bump.mjs", "eslint.config.mjs", "vitest.config.mts", "node_modules/**", "docs/**"],
 	}
 );
