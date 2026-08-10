@@ -7,12 +7,26 @@ import { DeviceCodeModal } from "./google/DeviceCodeModal";
 import { carddavPasswordSecretId, googleTokenSecretId } from "./secrets";
 import { GOOGLE_INTEGRATION_ENABLED } from "./featureFlags";
 import { t } from "./i18n";
+import { shouldStopTabPropagation } from "./settingsTabKeyboard";
 
 const SERVER_URL_PLACEHOLDER = "https://example.com/dav.php/addressbooks/user/contacts/";
 
 export class HarangContactsSettingTab extends PluginSettingTab {
 	constructor(app: App, private plugin: HarangContactsPlugin) {
 		super(app, plugin);
+
+		// Restores native Tab-to-next-field navigation inside this settings tab -- see
+		// settingsTabKeyboard.ts for why this is needed (Obsidian's own core Settings modal
+		// otherwise intercepts Tab on an ancestor container and repurposes it as row-jump
+		// navigation). Bubble-phase listener on our own containerEl fires before Obsidian's
+		// listener on the shared ancestor container, so stopping propagation here keeps the
+		// event from ever reaching it -- preventDefault() is deliberately never called, so the
+		// browser's native focus-move behavior still applies.
+		this.containerEl.addEventListener("keydown", (evt) => {
+			if (shouldStopTabPropagation(evt.key)) {
+				evt.stopPropagation();
+			}
+		});
 	}
 
 	getSettingDefinitions(): SettingDefinitionItem[] {

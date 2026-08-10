@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Pressing Tab inside this plugin's Settings tab now moves focus to the next
+  field, as expected. (Obsidian's own Settings modal otherwise intercepts Tab
+  and repurposes it as row-jump navigation; this plugin now stops that
+  interception from reaching it.)
+
 ### Changed
 
 - The `{{hrcard:<id>:<uid>}}` reference inserted by the `{{hrcard:` autocomplete now embeds the profile's stable internal id instead of its display name. Renaming a CardDAV/Google profile in settings no longer breaks references inserted going forward. **Not backward compatible:** references already inserted before this change stored the profile's *name* instead, and there is no id-or-name fallback resolver — any such reference will need to be manually deleted and re-inserted via the `{{hrcard:` autocomplete after this ships.
